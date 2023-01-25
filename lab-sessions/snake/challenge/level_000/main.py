@@ -71,17 +71,13 @@ while True:
 	# Game Over conditions
 	if snake.position[0] < 0 or snake.position[0] > game.window_x-10:
 		game.game_over(game_window)
-	""" if snake.position[0] < 0:
-		snake.position[0] = game.window_x-10
-	if snake.position[0] > game.window_x-10:
-		snake.position[0] = 0 """
 	if snake.position[1] < 0 or snake.position[1] > game.window_y-10:
 		game.game_over(game_window)
 
 	# Touching the snake body
-	for block in snake.body[1:]:
-		if snake.position[0] == block[0] and snake.position[1] == block[1]:
-			game.game_over(game_window)
+	# Implement game over conditions if the snake touches itself #TODO
+	# for block in snake.body[1:]:
+	# ...
 
 	# Refresh game
 	game.update(game_window)

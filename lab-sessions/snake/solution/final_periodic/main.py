@@ -78,7 +78,7 @@ while True:
 	if snake.position[1] > game.window_y-10:
 		snake.position[1] = 0
 
-	# Touching the snake body
+	# Game over conditions: touching the snake body
 	for block in snake.body[1:]:
 		if snake.position[0] == block[0] and snake.position[1] == block[1]:
 			game.game_over(game_window)
