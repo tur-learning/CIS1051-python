@@ -14,7 +14,7 @@ direction = 'RIGHT'
 change_to = direction
 
 # Setup fruit
-# #TODO
+fruit.init()
 
 # Main Function
 while True:
@@ -52,12 +52,12 @@ while True:
 	if direction == 'RIGHT':
 		snake.position[0] += 10
 
-	# Check if the fruit was eaten #TODO
+	# Check if the fruit was eaten
 	snake.move()
 
-	# if fruit.spawn == False: #TODO
-	# 	#TODO
-	# 	#TODO
+	if fruit.spawn == False: # fruit eaten
+		game.score+=10
+		fruit.position = fruit.locate()		
 		
 	# Fill the game background
 	game.fill(game_window)
@@ -65,19 +65,23 @@ while True:
 	# Move the snake body
 	snake.draw(game_window)
 
-	# Spawn the fruit randomly #TODO
-	# fruit.draw(game_window)
+	# Spawn the fruit randomly
+	fruit.draw(game_window)
 
-	# Game Over conditions
-	if snake.position[0] < 0 or snake.position[0] > game.window_x-10:
-		game.game_over(game_window)
-	if snake.position[1] < 0 or snake.position[1] > game.window_y-10:
-		game.game_over(game_window)
+	# Periodic boundary conditions
+	if snake.position[0] < 0:
+		snake.position[0] = game.window_x-10
+	if snake.position[0] > game.window_x-10:
+		snake.position[0] = 0
+	if snake.position[1] < 0:
+		snake.position[1] = game.window_y-10
+	if snake.position[1] > game.window_y-10:
+		snake.position[1] = 0
 
-	# Touching the snake body
-	# Implement game over conditions if the snake touches itself #TODO
-	# for block in snake.body[1:]:
-	# ...
-  
+	# Game over conditions: touching the snake body
+	for block in snake.body[1:]:
+		if snake.position[0] == block[0] and snake.position[1] == block[1]:
+			game.game_over(game_window)
+
 	# Refresh game
 	game.update(game_window)
