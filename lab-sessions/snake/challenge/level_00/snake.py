@@ -33,13 +33,13 @@ def move():
 	# if fruits and snakes collide then scores
 	# will be incremented by 10
 
-    #TODO
-    # grow = eat()
+  #TODO
+  # grow = eat()
 
-    # if grow == False:
-    #     #TODO
-    # else:
-    #     #TODO
+  # if grow == False:
+  #     #TODO
+  # else:
+  #     #TODO
 
 # def eat():
 #     #TODO

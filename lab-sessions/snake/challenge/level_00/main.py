@@ -78,6 +78,6 @@ while True:
 	# Implement game over conditions if the snake touches itself #TODO
 	# for block in snake.body[1:]:
 	# ...
-
+  
 	# Refresh game
 	game.update(game_window)
