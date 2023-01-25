@@ -9,7 +9,14 @@ position = [100, 50]
 body = [ [100, 50],
          [ 90, 50],
          [ 80, 50],
-         [ 70, 50] ]
+         [ 70, 50],
+         [ 60, 50],
+         [ 50, 50],
+         [ 40, 50],
+         [ 30, 50],
+         [ 20, 50],
+         [ 10, 50],
+         [ 0, 50] ]
 
 def draw(game_window):
     for pos in body:
@@ -39,4 +46,3 @@ def move():
 #         return True
 #     else:
 #         return False
-
