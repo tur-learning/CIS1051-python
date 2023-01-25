@@ -7,14 +7,14 @@ position = [100, 50]
 
 # defining first 4 blocks of snake body
 body = [ [100, 50],
-		 [ 90, 50],
-		 [ 80, 50],
-		 [ 70, 50] ]
+         [ 90, 50],
+         [ 80, 50],
+         [ 70, 50] ]
 
 def draw(game_window):
     for pos in body:
         pygame.draw.rect(game_window, game.green,
-						pygame.Rect(pos[0], pos[1], 10, 10))
+                         pygame.Rect(pos[0], pos[1], 10, 10))
 
 def move():
     grow = False
