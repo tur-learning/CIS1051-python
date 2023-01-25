@@ -31,10 +31,8 @@ while True:
 			if event.key == pygame.K_RIGHT:
 				change_to = 'RIGHT'
 
-	# If two keys pressed simultaneously
-	# we don't want snake to move into two
-	# directions simultaneously
-	
+	# We don't want the new direction to be the
+	# opposite of the current one
 	if change_to == 'UP' and direction != 'DOWN':
 		direction = 'UP'
 	if change_to == 'DOWN' and direction != 'UP':
@@ -73,6 +71,10 @@ while True:
 	# Game Over conditions
 	if snake.position[0] < 0 or snake.position[0] > game.window_x-10:
 		game.game_over(game_window)
+	""" if snake.position[0] < 0:
+		snake.position[0] = game.window_x-10
+	if snake.position[0] > game.window_x-10:
+		snake.position[0] = 0 """
 	if snake.position[1] < 0 or snake.position[1] > game.window_y-10:
 		game.game_over(game_window)
 
