@@ -14,7 +14,7 @@ direction = 'RIGHT'
 change_to = direction
 
 # Setup fruit
-fruit.init()
+# #TODO
 
 # Main Function
 while True:
@@ -53,12 +53,12 @@ while True:
 	if direction == 'RIGHT':
 		snake.position[0] += 10
 
-	# Check if the fruit was eaten
+	# Check if the fruit was eaten #TODO
 	snake.move()
 
-	if fruit.spawn == False: # fruit eaten
-		game.score+=10
-		fruit.position = fruit.locate()		
+	# if fruit.spawn == False: #TODO
+	# 	#TODO
+	# 	#TODO
 		
 	# Fill the game background
 	game.fill(game_window)
@@ -66,8 +66,8 @@ while True:
 	# Move the snake body
 	snake.draw(game_window)
 
-	# Spawn the fruit randomly
-	fruit.draw(game_window)
+	# Spawn the fruit randomly #TODO
+	# fruit.draw(game_window)
 
 	# Game Over conditions
 	if snake.position[0] < 0 or snake.position[0] > game.window_x-10:
