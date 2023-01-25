@@ -1,18 +1,17 @@
-import pygame
-import game
+# import pygame
+# import game
 
-# Setup initial fruit position
-position = game.random_pos()
+# # Setup initial fruit position
+# #TODO
 
-spawn = False
+# spawn = False
 
-def init():
-    spawn = True
+# def init():
+#     #TODO
 
-def draw(game_window):
-    pygame.draw.rect(game_window, game.white, pygame.Rect(
-                     position[0], position[1], 10, 10))
+# def draw(game_window):
+#     pygame.draw.rect(game_window, game.white, pygame.Rect(
+#                      position[0], position[1], 10, 10))
 
-def locate():
-    return game.random_pos()
-
+# def locate():
+#     #TODO
