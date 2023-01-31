@@ -14,7 +14,7 @@ direction = 'RIGHT'
 change_to = direction
 
 # Setup fruit
-# #TODO
+fruit.init()
 
 # Main Function
 while True:
@@ -65,8 +65,8 @@ while True:
 	# Move the snake body
 	snake.draw(game_window)
 
-	# Spawn the fruit randomly #TODO
-	# fruit.draw(game_window)
+	# Spawn the fruit randomly
+	fruit.draw(game_window)
 
 	# Game Over conditions
 	if snake.position[0] < 0 or snake.position[0] > game.window_x-10:
@@ -76,8 +76,10 @@ while True:
 
 	# Touching the snake body
 	# Implement game over conditions if the snake touches itself #TODO
-	# for block in snake.body[1:]:
-	# ...
+	for block in snake.body[1:]:
+		if snake.position == block:
+			game.game_over(game_window)
+	
 
 	# Refresh game
 	game.update(game_window)
