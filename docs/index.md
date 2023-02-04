@@ -98,7 +98,7 @@ end
 
 ### Large image
 
-![Branching](https://guides.github.com/activities/hello-world/branching.png)
+![Branching](https://github.com/tur-learning/CIS1051-python/blob/gh-pages/lectures/notebooks/img/cis1051-cover.png)
 
 
 ### Definition lists can be used with HTML syntax.
