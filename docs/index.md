@@ -96,10 +96,6 @@ end
 
 ![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png)
 
-### Large image
-
-![Sir Hiss](https://raw.githubusercontent.com/tur-learning/CIS1051-python/master/lectures/notebooks/img/cis1051-cover.png)
-
 
 ### Definition lists can be used with HTML syntax.
 
@@ -121,3 +117,7 @@ Long, single-line code blocks should not wrap. They should horizontally scroll i
 ```
 The final element.
 ```
+
+### Large image
+
+![Sir Hiss](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/cis1051-cover.png)
