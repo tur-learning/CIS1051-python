@@ -1,0 +1,10 @@
+# Jekyll-specific files
+_site/
+.sass-cache/
+.bundles_cache/
+.jekyll-cache/
+Gemfile.lock
+
+# Operating system files
+.DS_Store
+Thumbs.db
