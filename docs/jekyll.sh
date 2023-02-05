@@ -5,7 +5,8 @@
 
 
 mkdir -p ".bundles_cache"
-docker run --rm \
+docker run \
+  --name cis1051-site --rm \
   -v "${PWD}:/srv/jekyll" \
   -e BUNDLE_PATH="/srv/jekyll/.bundles_cache" \
   -p 4000:4000 \
