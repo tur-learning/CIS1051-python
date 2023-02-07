@@ -8,7 +8,7 @@ A [GitHub Page](https://pages.github.com) to help the students navigate the Cour
 
 <h1>{{ page.title }}</h1>
 
-<ul>
+<ul style="list-style: none;">
   {% for related in site.pages %}
     {% if related.url != page.url %}
       <li><a href="{{ site.baseurl }}{{ related.url }}">{{ related.title }}</a></li>
