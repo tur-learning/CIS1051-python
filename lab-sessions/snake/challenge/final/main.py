@@ -5,6 +5,7 @@ import pygame
 import game
 import snake
 import fruit
+import wall
 
 # Initialising game
 game_window = game.init()
@@ -30,6 +31,10 @@ while True:
 				change_to = 'LEFT'
 			if event.key == pygame.K_RIGHT:
 				change_to = 'RIGHT'
+			if event.key == pygame.K_LCTRL:
+				game.speed += 5
+			if event.key == pygame.K_LSHIFT:
+				game.speed -= 5
 
 	# We don't want the new direction to be the
 	# opposite of the current one
@@ -57,7 +62,11 @@ while True:
 
 	if fruit.spawn == False:
 		fruit.spawn = True
+		wall.new_wall()
 		fruit.position = fruit.locate()
+		for block in wall.body:
+			while fruit.position == block:
+				fruit.position = fruit.locate()
 		
 	# Fill the game background
 	game.fill(game_window)
@@ -67,18 +76,31 @@ while True:
 
 	# Spawn the fruit randomly
 	fruit.draw(game_window)
+	
+	# Draw the walls
+	wall.draw(game_window)
 
-	# Game Over conditions
-	if snake.position[0] < 0 or snake.position[0] > game.window_x-10:
-		game.game_over(game_window)
-	if snake.position[1] < 0 or snake.position[1] > game.window_y-10:
-		game.game_over(game_window)
+	# Periodic boundary conditions
+	if snake.position[0] < 0:
+		snake.position[0] = game.window_x-10
+	if snake.position[0] > game.window_x-10:
+		snake.position[0] = 0
+	if snake.position[1] < 0:
+		snake.position[1] = game.window_y-10
+	if snake.position[1] > game.window_y-10:
+		snake.position[1] = 0
 
 	# Touching the snake body
 	# Implement game over conditions if the snake touches itself #TODO
 	for block in snake.body[1:]:
 		if snake.position == block:
 			game.game_over(game_window)
+	
+	# Touching the wall, game over condition
+	for block in wall.body:
+		if snake.position == block:
+			game.game_over(game_window)
+	
 
 	# Refresh game
 	game.update(game_window)

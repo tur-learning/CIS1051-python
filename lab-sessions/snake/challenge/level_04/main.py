@@ -68,17 +68,22 @@ while True:
 	# Spawn the fruit randomly
 	fruit.draw(game_window)
 
-	# Game Over conditions
-	if snake.position[0] < 0 or snake.position[0] > game.window_x-10:
-		game.game_over(game_window)
-	if snake.position[1] < 0 or snake.position[1] > game.window_y-10:
-		game.game_over(game_window)
+	# Periodic boundary conditions
+	if snake.position[0] < 0:
+		snake.position[0] = game.window_x-10
+	if snake.position[0] > game.window_x-10:
+		snake.position[0] = 0
+	if snake.position[1] < 0:
+		snake.position[1] = game.window_y-10
+	if snake.position[1] > game.window_y-10:
+		snake.position[1] = 0
 
 	# Touching the snake body
 	# Implement game over conditions if the snake touches itself #TODO
 	for block in snake.body[1:]:
 		if snake.position == block:
 			game.game_over(game_window)
+	
 
 	# Refresh game
 	game.update(game_window)

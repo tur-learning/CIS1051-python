@@ -15,7 +15,7 @@ red 	= pygame.Color(255,   0,   0)
 green 	= pygame.Color(  0, 255,   0)
 
 # Window size
-window_x = 360 ; window_y = 360
+window_x = 720 ; window_y = 480
 
 # FPS (frames per second) controller
 # object to help track time
@@ -42,6 +42,10 @@ def update(game_window):
 
     # Frame Per Second /Refresh Rate
     fps.tick(speed)
+
+def random_int():
+	n = random.randint(0,1)*2 -1
+	return n
 
 def random_pos():
     pos = [random.randrange(1, (window_x//10)) * 10,
