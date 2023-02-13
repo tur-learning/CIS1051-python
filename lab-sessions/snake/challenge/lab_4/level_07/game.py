@@ -47,9 +47,9 @@ def random_int():
 	n = random.randint(0,1)*2 -1
 	return n
 
-def random_pos():
-    pos = [random.randrange(1, (window_x//10)) * 10,
-           random.randrange(1, (window_y//10)) * 10]
+def random_pos(offset = 0):
+    pos = [random.randrange(1 + 10*offset, (window_x//10)) * 10 - 10*offset,
+           random.randrange(1 + 10*offset, (window_y//10)) * 10 - 10*offset]
     return pos
 
 def fill(game_window):

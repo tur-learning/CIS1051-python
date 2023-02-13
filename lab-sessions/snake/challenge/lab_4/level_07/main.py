@@ -31,10 +31,6 @@ while True:
 				change_to = 'LEFT'
 			if event.key == pygame.K_RIGHT:
 				change_to = 'RIGHT'
-			if event.key == pygame.K_LCTRL:
-				game.speed += 5
-			if event.key == pygame.K_LSHIFT:
-				game.speed -= 5
 
 	# We don't want the new direction to be the
 	# opposite of the current one

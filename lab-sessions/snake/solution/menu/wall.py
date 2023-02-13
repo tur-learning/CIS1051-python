@@ -25,6 +25,6 @@ def new_wall():
 
     for block in wall_body:
         body.append(block)
-    if len(body) > 100000:
+    if len(body) > 25:
         for _ in range(5):
             body.pop(0)
