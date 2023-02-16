@@ -5,6 +5,18 @@ import pygame
 import game
 import snake
 import fruit
+import wall
+
+boundaries = False
+walls = False
+
+input1 = input("\nWould you like to have boundaries? (Y / N) : ")
+if input1.lower() == "y" or input1.lower() == "yes":
+	boundaries = True
+
+input2 = input("\nWould you like to have wall generation? (Y / N) : ")
+if input2.lower() == "y" or input2.lower() == "yes":
+	walls = True
 
 # Initialising game
 game_window = game.init()
@@ -14,11 +26,12 @@ direction = 'RIGHT'
 change_to = direction
 
 # Setup fruit
-# #TODO
+fruit.init()
 
+fruit_start_time = 0
 # Main Function
 while True:
-	
+
 	# handling key events
 	for event in pygame.event.get():
 		if event.type == pygame.KEYDOWN:
@@ -55,29 +68,62 @@ while True:
 	# Check if the fruit was eaten #TODO
 	snake.move()
 
-	# if fruit.spawn == False: #TODO
-	# 	#TODO
-	# 	#TODO
-		
+	keys = pygame.key.get_pressed()
+	if keys[pygame.K_SPACE]:
+		game.speed += 5
+	else:
+		game.speed = 15
+
+	if not fruit.spawn or pygame.time.get_ticks() - fruit_start_time > 5000:
+		game.score += 10
+		fruit.position = fruit.locate()
+		fruit_start_time = pygame.time.get_ticks()
+		if walls == False:
+			continue
+		else:
+			wall.newWall()
+			for i in wall.body:
+				while fruit.position == i:
+					fruit.position = fruit.locate()
+
 	# Fill the game background
 	game.fill(game_window)
-	
+		
 	# Move the snake body
 	snake.draw(game_window)
 
 	# Spawn the fruit randomly #TODO
-	# fruit.draw(game_window)
+	fruit.draw(game_window)
+
+	wall.draw(game_window)
 
 	# Game Over conditions
-	if snake.position[0] < 0 or snake.position[0] > game.window_x-10:
-		game.game_over(game_window)
-	if snake.position[1] < 0 or snake.position[1] > game.window_y-10:
-		game.game_over(game_window)
+	for block in snake.body[1:]:
+		if snake.position == wall.position:
+			game.game_over(game_window)
+
+	if boundaries == False:
+		if snake.position[0] < 0:
+			snake.position[0] = game.window_x-10
+		if snake.position[0] > game.window_x-10:
+			snake.position[0] = 0
+		if snake.position[1] < 0:
+			snake.position[1] = game.window_y-10
+		if snake.position[1] > game.window_y-10:
+			snake.position[1] = 0
+	else:
+		if snake.position[0] < 0 or snake.position[0] > game.window_x or snake.position[1] < 0 or snake.position[1] > game.window_y:
+			game.game_over(game_window)
 
 	# Touching the snake body
 	# Implement game over conditions if the snake touches itself #TODO
-	# for block in snake.body[1:]:
-	# ...
-  
+	for block in snake.body[1:]:
+		if snake.position == block:
+			game.game_over(game_window)
+
+	for block in wall.body[1:]:
+		if snake.position == block:
+			game.game_over(game_window)
+
 	# Refresh game
 	game.update(game_window)
