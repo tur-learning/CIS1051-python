@@ -20,7 +20,8 @@ def draw(game_window):
                          pygame.Rect(pos[0], pos[1], 10, 10))
 
 def new_wall():
-    new_position = game.random_pos()
+    offset = 2
+    new_position = game.random_pos(offset)
     wall_body = wall_geometry(new_position)
 
     for block in wall_body:

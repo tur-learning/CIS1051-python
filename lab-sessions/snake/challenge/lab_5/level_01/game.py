@@ -45,7 +45,6 @@ def init():
     game_window = pygame.display.set_mode((window_x, window_y))
     return game_window
 
-
 def update(game_window):
     # displaying score countinuously
     show_score(1, white, 'times new roman', 20, game_window)
@@ -106,6 +105,29 @@ def game_over(game_window):
 	
 	# blit will draw the text on screen
 	game_window.blit(game_over_surface, game_over_rect)
+	pygame.display.flip()
+	
+	# after 2 seconds we will quit the program
+	time.sleep(2)
+	
+	# deactivating pygame library
+	pygame.quit()
+	
+	# quit the program
+	quit()
+
+def congratulations(game_window):
+
+	my_font = pygame.font.SysFont('times new roman', 40)
+	surface = my_font.render(
+		'Congratulations, you completed the game!', True, green)
+	rect = surface.get_rect()
+	
+	# setting position of the text
+	rect.midtop = (window_x/2, window_y/4)
+	
+	# blit will draw the text on screen
+	game_window.blit(surface, rect)
 	pygame.display.flip()
 	
 	# after 2 seconds we will quit the program
