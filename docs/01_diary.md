@@ -29,14 +29,14 @@ td, th {
     <td></td>
   </tr>
   <tr>
-    <td align="left"><a href="lectures/slides/course_guide.slides.html">Course Guide</a></td>
+    <td align="left"><a href="lectures/slides/00a_course_guide.slides.html">Course Guide</a></td>
     <td></td>
-    <td align="right"><a href="lectures/slides/course_guide.slides.html">Google Colab</a></td>
+    <td align="right"><a href="lectures/slides/00a_course_guide.slides.html">Google Colab</a></td>
   </tr>
   <tr>
-    <td align="left"><a href="lectures/slides/intro_python.slides.html">Intro Python</a></td>
+    <td align="left"><a href="lectures/slides/01a_intro_python.slides.html">Intro Python</a></td>
     <td></td>
-    <td></td>
+    <td align="right"><a href="lectures/slides/00a_course_guide.slides.html">Docker Setup</a></td>
   </tr>
   <tr>
     <td></td>
@@ -44,12 +44,12 @@ td, th {
     <td></td>
   </tr>
   <tr>
-    <td align="left"><a href="lectures/slides/02_variables.slides.html">Variables</a></td>
+    <td align="left"><a href="lectures/slides/02a_variables.slides.html">Variables</a></td>
     <td></td>
-    <td align="right"><a href="lectures/slides/course_guide.slides.html">Snake I</a></td>
+    <td align="right"><a href="lectures/slides/00a_course_guide.slides.html">Snake I</a></td>
   </tr>
   <tr>
-    <td align="left"><a href="lectures/slides/03_functions.slides.html">Functions</a></td>
+    <td align="left"><a href="lectures/slides/03a_functions.slides.html">Functions</a></td>
     <td></td>
     <td></td>
   </tr>
@@ -59,14 +59,14 @@ td, th {
     <td></td>
   </tr>
   <tr>
-    <td align="left"><a href="lectures/slides/04_interfaces_design.slides.html">Interfaces Design</a></td>
+    <td align="left"><a href="lectures/slides/04a_interfaces_design.slides.html">Interfaces Design</a></td>
     <td></td>
-    <td align="right"><a href="lectures/slides/course_guide.slides.html">Snake II</a></td>
+    <td align="right"><a href="lectures/slides/00a_course_guide.slides.html">Snake II</a></td>
   </tr>
   <tr>
     <td></td>
     <td></td>
-    <td align="right"><a href="lectures/slides/03_functions.slides.html">Turtle graphics</a></td>
+    <td align="right"><a href="lectures/slides/00a_course_guide.slides.html">Turtle graphics</a></td>
   </tr>
   <tr>
     <td></td>
@@ -74,8 +74,48 @@ td, th {
     <td></td>
   </tr>
   <tr>
-    <td align="left"><a href="lectures/slides/05_conditionals_recursion.slides.html">Conditionals & Recursion</a></td>
+    <td align="left"><a href="lectures/slides/05a_conditionals_recursion.slides.html">Conditionals & Recursion</a></td>
     <td></td>
+    <td align="right"><a href="lectures/slides/00a_course_guide.slides.html">Snake III</a></td>
+  </tr>
+    <tr>
+    <td></td>
+    <td align="center"> Week 5</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td align="left"><a href="lectures/slides/05b_conditionals_recursion.slides.html">SDP & pygame I</a></td>
+    <td></td>
+    <td align="right"><a href="lectures/slides/00a_course_guide.slides.html">Snake IV</a></td>
+  </tr>
+    <tr>
+    <td></td>
+    <td align="center"> Week 6</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td align="left"><a href="lectures/slides/05b_conditionals_recursion.slides.html">SDP & pygame II</a></td>
+    <td></td>
+    <td align="right"><a href="lectures/slides/00a_course_guide.slides.html">Snake V</a></td>
+  </tr>
+    <td></td>
+    <td></td>
+    <td align="right"><a href="lectures/slides/00a_course_guide.slides.html">Scrolling Background</a></td>
+  </tr>
+    <tr>
+    <td></td>
+    <td align="center"> Week 7</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td align="left">Spring Break</td>
+    <td></td>
+    <td align="right">Spring Break</td>
+  </tr>
+    </tr>
+    <tr>
+    <td></td>
+    <td align="center"> Week 8</td>
     <td></td>
   </tr>
 </table>
