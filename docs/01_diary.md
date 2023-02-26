@@ -84,7 +84,7 @@ td, th {
     <td></td>
   </tr>
   <tr>
-    <td align="left"><a href="lectures/slides/05b_conditionals_recursion.slides.html">SDP & pygame I</a></td>
+    <td align="left"><a href="lectures/slides/05b_pygame_overview.slides.slides.html">SDP & pygame I</a></td>
     <td></td>
     <td align="right"><a href="lectures/slides/00a_course_guide.slides.html">Snake IV</a></td>
   </tr>
@@ -94,7 +94,7 @@ td, th {
     <td></td>
   </tr>
   <tr>
-    <td align="left"><a href="lectures/slides/05b_conditionals_recursion.slides.html">SDP & pygame II</a></td>
+    <td align="left"><a href="lectures/slides/05b_pygame_overview.slides.slides.html">SDP & pygame II</a></td>
     <td></td>
     <td align="right"><a href="lectures/slides/00a_course_guide.slides.html">Snake V</a></td>
   </tr>
