@@ -15,7 +15,7 @@ red 	= pygame.Color(255,   0,   0)
 green 	= pygame.Color(  0, 255,   0)
 
 # Window size
-window_x = 720 ; window_y = 480
+window_x = 360 ; window_y = 360
 
 # FPS (frames per second) controller
 # object to help track time
