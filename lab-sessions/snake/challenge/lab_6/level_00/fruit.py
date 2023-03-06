@@ -13,5 +13,5 @@ def draw(game_window):
     pygame.draw.rect(game_window, game.white, pygame.Rect(
                      position[0], position[1], 10, 10))
 
-# def locate():
-#     #TODO
+def locate():
+    return game.random_pos()

@@ -1,6 +1,6 @@
 import pygame
 import game
-# import fruit #TODO
+import fruit
 
 # defining snake default position
 position = [100, 50]
@@ -9,14 +9,7 @@ position = [100, 50]
 body = [ [100, 50],
          [ 90, 50],
          [ 80, 50],
-         [ 70, 50],
-         [ 60, 50],
-         [ 50, 50],
-         [ 40, 50],
-         [ 30, 50],
-         [ 20, 50],
-         [ 10, 50],
-         [ 0, 50] ]
+         [ 70, 50]]
 
 def draw(game_window):
     for pos in body:
@@ -25,24 +18,28 @@ def draw(game_window):
 
 def move():
     grow = False
-    
-    body.insert(0, list(position))
-    body.pop()
 
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LCTRL]:
+        game.speed = 30
+    else:
+        game.speed = 15
 	# Snake body growing mechanism
 	# if fruits and snakes collide then scores
 	# will be incremented by 10
 
-    #TODO
-    # grow = eat()
+    body.insert(0, list(position))
+    grow = eat()
 
-    # if grow == False:
-    #     #TODO
-    # else:
-    #     #TODO
+    if grow == False:
+        body.pop()
+        fruit.spawn = True
+    else:
+        fruit.spawn = False
+        game.score += 10
 
-# def eat():
-#     #TODO
-#         return True
-#     else:
-#         return False
+def eat():
+    if position == fruit.position:
+        return True
+    else:
+        return False

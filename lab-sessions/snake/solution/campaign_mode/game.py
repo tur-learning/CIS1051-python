@@ -1,6 +1,10 @@
 import pygame
+import pygame_menu
 import random
 import time
+
+# Main Menu
+mainmenu = True
 
 # initial score
 score = 0
@@ -21,6 +25,16 @@ window_x = 720 ; window_y = 480
 # object to help track time
 fps = pygame.time.Clock()
 
+# Main menu theme (pygame_menu)
+theme = pygame_menu.themes.THEME_DARK.copy()
+theme.title_font = pygame_menu.font.FONT_8BIT
+theme.widget_font = pygame_menu.font.FONT_8BIT
+
+# Set periodic boundaries
+periodic = [True]
+
+# Set random walls
+random_walls = [True]
 
 def init():
     # Initialising pygame
@@ -29,9 +43,7 @@ def init():
     # Initialise game window
     pygame.display.set_caption('CIS 1051 Snakes')
     game_window = pygame.display.set_mode((window_x, window_y))
-
     return game_window
-
 
 def update(game_window):
     # displaying score countinuously
@@ -43,9 +55,13 @@ def update(game_window):
     # Frame Per Second /Refresh Rate
     fps.tick(speed)
 
-def random_pos():
-    pos = [random.randrange(1, (window_x//10)) * 10,
-           random.randrange(1, (window_y//10)) * 10]
+def random_int():
+	n = random.randint(0,1)*2 -1
+	return n
+
+def random_pos(offset = 0):
+    pos = [random.randrange(1 + 10*offset, (window_x//10)) * 10 - 10*offset,
+           random.randrange(1 + 10*offset, (window_y//10)) * 10 - 10*offset]
     return pos
 
 def fill(game_window):
@@ -99,3 +115,36 @@ def game_over(game_window):
 	
 	# quit the program
 	quit()
+
+def congratulations(game_window):
+
+	my_font = pygame.font.SysFont('times new roman', 40)
+	surface = my_font.render(
+		'Congratulations, you completed the game!', True, green)
+	rect = surface.get_rect()
+	
+	# setting position of the text
+	rect.midtop = (window_x/2, window_y/4)
+	
+	# blit will draw the text on screen
+	game_window.blit(surface, rect)
+	pygame.display.flip()
+	
+	# after 2 seconds we will quit the program
+	time.sleep(2)
+	
+	# deactivating pygame library
+	pygame.quit()
+	
+	# quit the program
+	quit()
+
+def set_periodic(str, value):
+	periodic[0] = value
+
+def set_walls(str, value):
+	random_walls[0] = value
+
+def unset_options():
+	random_walls[0] = False
+	periodic[0] = True
