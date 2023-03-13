@@ -41,8 +41,8 @@ td, th {
             <p>According to the Author's Preface, this book:</p>
             <ul>
                <li>keeps it short, better to read 10 pages than 50</li>
-               <li>is careful with vocabulary, minimazing jargon when defining</li>
-               <li>builds gradually, avoiding trapdoors effect (bottom fall out)</li>
+               <li>is careful with vocabulary, minimazing jargon</li>
+               <li>builds gradually, avoids trapdoors effect</li>
                <li>focus on programming (not only the language's syntax)</li>
             </ul>
          </div>
