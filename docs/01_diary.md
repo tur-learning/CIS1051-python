@@ -49,7 +49,7 @@ td, th {
     <td align="right"><a href="lectures/slides/00a_course_guide.slides.html">Snake I</a></td>
   </tr>
   <tr>
-    <td align="left"><a href="lectures/slides/03a_functions.slides.html">Functions</a></td>
+    <td align="left"><a href="lectures/slides/03a_functions1.slides.html">Functions</a></td>
     <td></td>
     <td></td>
   </tr>
@@ -78,7 +78,7 @@ td, th {
     <td></td>
     <td align="right"><a href="lectures/slides/00a_course_guide.slides.html">Snake III</a></td>
   </tr>
-    <tr>
+  <tr>
     <td></td>
     <td align="center"> Week 5</td>
     <td></td>
@@ -88,7 +88,7 @@ td, th {
     <td></td>
     <td align="right"><a href="lectures/slides/00a_course_guide.slides.html">Snake IV</a></td>
   </tr>
-    <tr>
+  <tr>
     <td></td>
     <td align="center"> Week 6</td>
     <td></td>
@@ -98,11 +98,12 @@ td, th {
     <td></td>
     <td align="right"><a href="lectures/slides/00a_course_guide.slides.html">Snake V</a></td>
   </tr>
+  <tr>
     <td></td>
     <td></td>
     <td align="right"><a href="lectures/slides/00a_course_guide.slides.html">Scrolling Background</a></td>
   </tr>
-    <tr>
+  <tr>
     <td></td>
     <td align="center"> Week 7</td>
     <td></td>
@@ -112,10 +113,19 @@ td, th {
     <td></td>
     <td align="right">Spring Break</td>
   </tr>
-    </tr>
-    <tr>
+  <tr>
     <td></td>
     <td align="center"> Week 8</td>
     <td></td>
+  </tr>
+  <tr>
+    <td align="left"><a href="lectures/slides/06a_functions2.slides.slides.html">Functions and Return values</a></td>
+    <td></td>
+    <td align="right"><a href="lectures/slides/00a_course_guide.slides.html">Space Exploration</a></td>
+  </tr>
+  <tr>
+    <td align="left"><a href="lectures/slides/07a_iteration.slides.slides.html">Iteration</a></td>
+    <td></td>
+    <td align="right"><a href="lectures/slides/00a_course_guide.slides.html">Final Project's Review I</a></td>
   </tr>
 </table>
