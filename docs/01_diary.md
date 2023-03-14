@@ -7,8 +7,12 @@ filename: 01_diary
 <h1>{{ page.title }}</h1>
 
 <style>
+table {
+  margin-left:auto;
+  margin-right:auto;
+}
 td, th {
-   border: none!important;
+  border: none!important;
 }
 </style>
 
