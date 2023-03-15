@@ -91,13 +91,13 @@ Once logged-in on [GitHub](https://github.com/), navigate to the repo [tur-learn
 
 This will open a browser-based IDE (essentially vscode) in a new tab.
 
-![IDE Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/ide_codespace.png)
+<!-- ![IDE Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/ide_codespace.png) -->
 
 From within the integrated CLI, change to the parent `/workspaces` directory with 
 
     cd ..
 
-![CLI Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/cli_codespace.png)
+<!-- ![CLI Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/cli_codespace.png) -->
 
 so we can start installing all the dependecies we need, starting from the most important, `pygame` module!
 
@@ -110,20 +110,20 @@ Then, let's install a custom version of the `pygbag` module:
     git checkout gh-codespaces
     pip install -e $PWD
 
-![pygbag Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/pygbag_codespace.png)
+<!-- ![pygbag Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/pygbag_codespace.png) -->
 
 At this point, go back to the repo root and navigate to the example you want to run, for instance:
 
     cd ..
     cd CIS1051-python/lab-sessions/snake/challenge/lab_4/level_10/
 
-![challenge Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/challenge_codespace.png)
+<!-- ![challenge Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/challenge_codespace.png) -->
 
 from there, run it with the following command
 
     pygbag --gh_codespace ${CODESPACE_NAME} main.py
 
-![port Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/port_codespace.png)
+<!-- ![port Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/port_codespace.png) -->
 
 and access it on the default port `8000` under the randomly choosed codespace domain (example below)
 
@@ -131,13 +131,13 @@ and access it on the default port `8000` under the randomly choosed codespace do
 
 Then click on the `Ready to start !` button and that's it!
 
-![Ready Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/ready_codespace.png)
+<!-- ![Ready Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/ready_codespace.png) -->
 
 **N.B.** always remember to turn off the codespace we just instantiated, not to waste useful resources (i.e. core hours used). Thus click on the GitHub `Codespace` tab at the Top Navigation Bar of the repo
 
 ![Bar Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/bar_codespace.png)
 
-then, search for the previous randomly choosed name, of the codespace running and stop it.
+then, search for the running codespace randomly generated name and stop it.
 
 ![Stop Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/stop_codespace.png)
 
