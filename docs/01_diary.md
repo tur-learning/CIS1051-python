@@ -8,8 +8,10 @@ filename: 01_diary
 
 <style>
 table {
-  margin-left:auto;
-  margin-right:auto;
+  /* margin-left:auto;
+  margin-right:auto; */
+  margin: 0 auto;
+  text-align: center;
 }
 td, th {
   border: none!important;
