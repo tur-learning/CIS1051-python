@@ -27,8 +27,9 @@ To outline, in a few words, the two (similar) solutions here below: in both case
 What was missing was in principle just a GUI to to render `pygame` graphics.
 
 To overcome this issue, fortunately thanks to the `pygbag` module, we can access the game as a webapp on a browser-based GUI. More info on this package at the following links:
-- https://pypi.org/project/pygbag/
-- https://pygame-web.github.io/
+- [Python Package](https://pypi.org/project/pygbag/)
+- [Project Page](https://pygame-web.github.io/)
+- [GitHub Repo](https://github.com/pygame-web/pygbag)
 
 ## Docker setup
 
@@ -44,7 +45,7 @@ open any CLI, and run the following command
 
 this will run a Docker container, in detached mode, with the promised dev environment accessible from the browser.
 
-After the [alnoda/python-workspace](https://hub.docker.com/r/alnoda/python-workspace) Docker image has been pulled (just the first time) and the Docker container is up and running, go to [localhost:8020](localhost:8020)
+After the [alnoda/python-workspace](https://hub.docker.com/r/alnoda/python-workspace) Docker image has been pulled (just the first time) and the Docker container is up and running, go to [localhost:8020](http://localhost:8020/)
 
 ![Docker alnoda](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/docker_alnoda.png)
 
@@ -78,7 +79,7 @@ From there, run it with the following command
 
 <!-- ![port Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/port_codespace.png) -->
 
-go to [localhost:8030](localhost:8030) click on the `Ready to start !` button and that's it!
+go to [localhost:8030](http://localhost:8030/) click on the `Ready to start !` button and that's it!
 
 ## GitHub Codespace setup 
 
