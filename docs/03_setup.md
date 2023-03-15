@@ -22,6 +22,14 @@ To run simple Python scripts, there are couple options out there:
 
 However, if we need something more advanced &ndash; as well as more control over the dev enviroment itself &ndash; go on to the next sections to find out how to fire up a powerful Linux host and anything you need, with just a couple commands!
 
+To outline, in a few words, the two (similar) solutions here below: in both cases a containerized dev environment is instantiated (locally, with Docker or in the cloud, on GitHub). From there, all the fundamental tools we need (an IDE and the CLI) to develop, are accessible from the browser itself. 
+
+What was missing was in principle just a GUI to to render `pygame` graphics.
+
+To overcome this issue, fortunately thanks to the `pygbag` module, we can access the game as a webapp on a browser-based GUI. More info on this package at the following links:
+- https://pypi.org/project/pygbag/
+- https://pygame-web.github.io/
+
 ## Docker setup
 
 This is the most effective solution to get a fully fledged dev environment (locally): with minimal installation requirements (just Docker) and full controll over the available resources, as well as over the whole environment!
@@ -36,11 +44,11 @@ open any CLI, and run the following command
 
 this will run a Docker container, in detached mode, with the promised dev environment accessible from the browser.
 
-After the [alnoda/python-workspace](https://hub.docker.com/r/alnoda/python-workspace) Docker image has been pulled (just the first time) and the Docker container is up and runnig, go to <localhost:8020>
+After the [alnoda/python-workspace](https://hub.docker.com/r/alnoda/python-workspace) Docker image has been pulled (just the first time) and the Docker container is up and running, go to [localhost:8020](localhost:8020)
 
 ![Docker alnoda](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/docker_alnoda.png)
 
-From there open the `Terminal` (CLI) webapp and first of all, clone the repo[tur-learning/CIS1051-python](https://github.com/tur-learning/CIS1051-python/tree/master)
+From there open the `Terminal` webapp (CLI) and first of all, clone the repo [tur-learning/CIS1051-python](https://github.com/tur-learning/CIS1051-python/tree/master)
 
     git clone https://github.com/tur-learning/CIS1051-python.git
 
@@ -48,7 +56,7 @@ Now we can start installing all the necessary dependecies, starting from `pygame
 
     pip install pygame
 
-Then, to render `pygame` graphics on a browser-based GUI, let's install a custom version of the `pygbag` module:
+Then, let's install a custom version of the `pygbag` module:
 
     git clone https://github.com/andreagalle/pygbag.git
     cd pygbag
@@ -64,13 +72,13 @@ At this point, go back to the repo root and navigate to the example you want to 
 
 <!-- ![challenge Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/challenge_codespace.png) -->
 
-fom there you can run it, with the following command
+From there, run it with the following command
 
     pygbag --docker_workspace --port 8030 main.py
 
 <!-- ![port Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/port_codespace.png) -->
 
-and going to <localhost:8030> click on the `Ready to start !` button and that's it!
+go to [localhost:8030](localhost:8030) click on the `Ready to start !` button and that's it!
 
 ## GitHub Codespace setup 
 
@@ -94,7 +102,7 @@ so we can start installing all the dependecies we need, starting from the most i
 
     pip install pygame
 
-Then, to render `pygame` graphics on a browser-based GUI, let's install a custom version of the `pygbag` module:
+Then, let's install a custom version of the `pygbag` module:
 
     git clone https://github.com/andreagalle/pygbag.git
     cd pygbag
@@ -110,13 +118,13 @@ At this point, go back to the repo root and navigate to the example you want to 
 
 ![challenge Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/challenge_codespace.png)
 
-fom there you can run it with the following command
+from there, run it with the following command
 
     pygbag --gh_codespace ${CODESPACE_NAME} main.py
 
 ![port Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/port_codespace.png)
 
-thanks to the `pygbag` module, you can access the game (webapp) on the default port `8000` under the (randomly choosed) Codespace Domain name
+and access it on the default port `8000` under the randomly choosed codespace domain (example below)
 
 ![URL Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/url_codespace.png)
 
@@ -128,7 +136,7 @@ Then click on the `Ready to start !` button and that's it!
 
 ![Bar Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/bar_codespace.png)
 
-then, search for the previous (randomly choosed) name of the codespace running and stop it.
+then, search for the previous randomly choosed name, of the codespace running and stop it.
 
 ![Stop Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/stop_codespace.png)
 
