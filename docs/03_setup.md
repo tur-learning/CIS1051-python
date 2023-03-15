@@ -26,11 +26,57 @@ However, if we need something more advanced &ndash; as well as more control over
 
 This is the most effective solution to get a fully fledged dev environment (locally): with minimal installation requirements (just Docker) and full controll over the available resources, as well as over the whole environment!
 
+Once installed [Docker](https://www.docker.com/) on you personal computer (check out the right installation package given the OS)
+
+![Docker Download](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/docker_download.png)
+
+open any CLI, and run the following command
+
+    docker run --name cis1051-python -d -p 8020-8040:8020-8040 alnoda/python-workspace
+
+this will run a Docker container, in detached mode, with the promised dev environment accessible from the browser.
+
+After the [alnoda/python-workspace](https://hub.docker.com/r/alnoda/python-workspace) Docker image has been pulled (just the first time) and the Docker container is up and runnig, go to <localhost:8020>
+
+![Docker alnoda](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/docker_alnoda.png)
+
+From there open the `Terminal` (CLI) webapp and first of all, clone the repo[tur-learning/CIS1051-python](https://github.com/tur-learning/CIS1051-python/tree/master)
+
+    git clone https://github.com/tur-learning/CIS1051-python.git
+
+Now we can start installing all the necessary dependecies, starting from `pygame` module, the most important one!
+
+    pip install pygame
+
+Then, to render `pygame` graphics on a browser-based GUI, let's install a custom version of the `pygbag` module:
+
+    git clone https://github.com/andreagalle/pygbag.git
+    cd pygbag
+    git checkout docker-workspace
+    pip install -e $PWD
+
+<!-- ![pygbag Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/pygbag_codespace.png) -->
+
+At this point, go back to the repo root and navigate to the example you want to run, for instance:
+
+    cd ..
+    cd CIS1051-python/lab-sessions/snake/challenge/lab_4/level_10/
+
+<!-- ![challenge Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/challenge_codespace.png) -->
+
+fom there you can run it, with the following command
+
+    pygbag --docker_workspace --port 8030 main.py
+
+<!-- ![port Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/port_codespace.png) -->
+
+and going to <localhost:8030> click on the `Ready to start !` button and that's it!
+
 ## GitHub Codespace setup 
 
 This is the quickest way to spin up a lightweight dev environment (in the cloud): without the need of installing anything at all on your personal computer, althougth sacrifying to some extent the available resources and control, over the environment itself.
 
-Once logged-in on GitHub, go to the repo ( i.e. [tur-learning/CIS1051-python](https://github.com/tur-learning/CIS1051-python/tree/master) ) and click on the `Use this template > Open in a codespace` button 
+Once logged-in on [GitHub](https://github.com/), navigate to the repo [tur-learning/CIS1051-python](https://github.com/tur-learning/CIS1051-python/tree/master) and click on the `Use this template > Open in a codespace` button 
 
 ![Open Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/open_codespace.png)
 
@@ -38,17 +84,17 @@ This will open a browser-based IDE (essentially vscode) in a new tab.
 
 ![IDE Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/ide_codespace.png)
 
-From inside the integrated CLI, change to the parent `/workspaces` directory with 
+From within the integrated CLI, change to the parent `/workspaces` directory with 
 
     cd ..
 
 ![CLI Codespace](https://raw.githubusercontent.com/tur-learning/CIS1051-python/gh-pages/lectures/notebooks/img/cli_codespace.png)
 
-so we can start installing all the necessary dependecies we need, starting from the most important one, the `pygame` module!
+so we can start installing all the dependecies we need, starting from the most important, `pygame` module!
 
     pip install pygame
 
-the next one is necessary to render `pygame` graphics on a browser-based GUI, in a new tab, installing a custom version of the `pygbag` module:
+Then, to render `pygame` graphics on a browser-based GUI, let's install a custom version of the `pygbag` module:
 
     git clone https://github.com/andreagalle/pygbag.git
     cd pygbag
