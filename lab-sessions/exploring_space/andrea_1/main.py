@@ -4,6 +4,7 @@ import random
 import copy
 import planet
 import enemy
+import map
 
 def show_periodic_background(x1, y1, bkg):
     x1 = (bg_frame.width  + x1 + movement[0]) % bg_frame.width
@@ -34,7 +35,6 @@ def show_periodic_background(x1, y1, bkg):
     game_window.blit(bkg, (w1,h1), quad_3)
     game_window.blit(bkg, (0,h1), quad_4)
 
-    game_window.blit(ship, ((window_x-ship.get_width())/2, (window_y-ship.get_height())/2))
     return x1, y1
 
 # Initialization
@@ -55,12 +55,9 @@ game_window = pygame.display.set_mode((window_x,
 pygame.mouse.set_visible(False)
 
 # Loading images to be displayed
-zoom_1 = 20*0.6
+zoom_1 = 10*0.6
 zoom_2 = 20
-bkg_map = pygame.image.load("background.png").convert()
-bkg_map = pygame.transform.scale(bkg_map, (window_x*zoom_1, window_y*zoom_1))
-
-bg_frame = bkg_map.get_rect()
+bkg_map = map.Map(0., 0., window_x, window_y, zoom_1, "background.png")
 
 ship = pygame.image.load("spaceship.png").convert_alpha()
 ship = pygame.transform.scale(ship, (window_x/zoom_2, window_y/zoom_2))
@@ -76,29 +73,30 @@ shot_rect.center = game_window.get_rect().center
 shot_moving = False
 
 speed = 10
-x1 = random.randint(0, window_x)#background.get_rect().centerx
-y1 = random.randint(0, window_y)#background.get_rect().centery
-x1 = 100.
-y1 = 0.
+x1 = random.randint(0, window_x)
+y1 = random.randint(0, window_y)
 
-# Create a planet with x=100, y=100, radius=50, and image file "planet.png"
-earth = planet.Planet(0., 0., 500, "earth.png")
+x2 = random.randint(0, window_x)
+y2 = random.randint(0, window_y)
+
+# Create a planet
+earth = planet.Planet(x2, y2, 500, "earth.png")
 
 # Create an enemy
-alien = enemy.Enemy(550., 0., 1100, 0., 0., "enemy.png")
+alien = enemy.Enemy(x2 + 400., y2, 600, x2, y2, "enemy.png")
 
 end_pos = (-1, -1)
 
-# Create a transparent surface
-background = pygame.Surface((3000, 3000))
+# Create a black surface background to blit surfaces on
+background = bkg_map.scaled_surface.copy()
+background.fill('black')
+bg_frame = background.get_rect()
 
 # Main loop
 while True:
 
     # Setting the fps
     fps.tick(60)
-    background.fill((0,0,0))
-    background.blit(bkg_map, (0,0))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -123,16 +121,19 @@ while True:
         movement[1] =   speed
 
     x1, y1 = show_periodic_background(x1, y1, background)
+    
+    # Draw the map on top of the black background
+    bkg_map.draw(background)
 
-    # Draw the planet on a given surface
+    # Draw the planet on top of the map
     earth.draw(background)
 
-    # Draw the alien on a given surface
-    alien.move_around_circle(0.1)
+    # Draw the alien on top of the map
+    alien.move_around_circle(1)
     alien.draw(background)
 
-    # # Blit the transparent surface onto the screen
-    # background.blit(transparent_surface, (0, 0))
+    # Draw the ship on the game window center
+    game_window.blit(ship, ((window_x-ship.get_width())/2, (window_y-ship.get_height())/2))
 
     # Get the current mouse position
     mouse_pos = pygame.mouse.get_pos()

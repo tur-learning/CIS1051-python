@@ -13,13 +13,12 @@ class Enemy:
         self.angle = 0
     
     def draw(self, surface):
-        # Scale the planet surface to the appropriate size
+        # Scale the enemy surface to the appropriate size
         scaled_surface = pygame.transform.scale(self.surface, (100., 100.))
         # Get the rect for the scaled surface
         rect = scaled_surface.get_rect()
-        # Set the rect's center to the planet's position
+        # Set the rect's center to the enemy's position
         rect.center = (self.x, self.y)
-        # Blit the scaled surface onto the given surface
         surf_rect = surface.get_rect()
 
         rect.left   = (surf_rect.width  + rect.left) % surf_rect.width
