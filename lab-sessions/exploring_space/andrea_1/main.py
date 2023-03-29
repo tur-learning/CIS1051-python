@@ -80,7 +80,8 @@ x2 = random.randint(0, window_x)
 y2 = random.randint(0, window_y)
 
 # Create a planet
-earth = planet.Planet(x2, y2, 500, "earth.png")
+earth = planet.Planet(x2, y2, 500, 0, 0, "earth.png")
+moon = planet.Planet(x2 + 800, y2, 100, x2, y2, "moon.png")
 
 # Create an enemy
 alien = enemy.Enemy(x2 + 400., y2, 600, x2, y2, "enemy.png")
@@ -121,15 +122,19 @@ while True:
         movement[1] =   speed
 
     x1, y1 = show_periodic_background(x1, y1, background)
-    
+
     # Draw the map on top of the black background
     bkg_map.draw(background)
 
     # Draw the planet on top of the map
     earth.draw(background)
 
+    # Draw the moon on top of the map
+    moon.move_around_circle(1)
+    moon.draw(background)
+
     # Draw the alien on top of the map
-    alien.move_around_circle(1)
+    alien.move_around_circle(2)
     alien.draw(background)
 
     # Draw the ship on the game window center

@@ -56,4 +56,4 @@ class Enemy:
         self.angle += speed % (2*math.pi)
         # Calculate the new x and y position based on the angle and radius
         self.x = int(self.center_x + self.radius * math.cos(math.radians(self.angle)))
-        self.y = int(self.center_y + self.radius * math.sin(math.radians(self.angle)))
+        self.y = int(self.center_y + 0.25*self.radius * math.sin(math.radians(self.angle)))

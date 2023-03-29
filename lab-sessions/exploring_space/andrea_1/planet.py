@@ -1,12 +1,16 @@
 import pygame
 import random
+import math
 
 class Planet:
-    def __init__(self, x, y, radius, image_path):
+    def __init__(self, x, y, radius, center_x, center_y, image_path):
         self.x = x
         self.y = y
         self.radius = radius
         self.surface = pygame.image.load(image_path).convert_alpha()
+        self.angle = 0
+        self.center_x = center_x
+        self.center_y = center_y
     
     def draw(self, surface):
         # Scale the planet surface to the appropriate size
@@ -47,6 +51,13 @@ class Planet:
     def randomize_position(self, screen_width, screen_height):
         self.x = random.randint(self.radius, screen_width - self.radius)
         self.y = random.randint(self.radius, screen_height - self.radius)
+
+    def move_around_circle(self, speed):
+        # Update the angle
+        self.angle += speed % (2*math.pi)
+        # Calculate the new x and y position based on the angle and radius
+        self.x = int(self.center_x + 6*self.radius * math.cos(math.radians(self.angle)))
+        self.y = int(self.center_y + 6*self.radius * math.sin(math.radians(self.angle)))
 
 
 class Circle:
