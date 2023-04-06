@@ -1,6 +1,7 @@
 import pygame
 import random
 import math
+import time
 
 class GameObject(pygame.sprite.Sprite):
     def __init__(self, x, y, radius, center_x, center_y, image_path):
@@ -57,16 +58,18 @@ class GameObject(pygame.sprite.Sprite):
         self.rect.centerx = int(self.center_x + 10*self.radius * math.cos(math.radians(self.angle)))
         self.rect.centery = int(self.center_y + 10*self.radius * math.sin(math.radians(self.angle)))
 
-    def collide(self, other, x1, y1):
-        # abs_other = other.copy()
-        # abs_other.x += x1
-        # abs_other.y += y1
-        if pygame.Rect.colliderect(self.rect, other.rect):
+    def collide(self, other, x, y):
+        abs_rect = other.rect.copy()
+        abs_rect.x += x
+        abs_rect.y += y
+        #print("x1 = ", x, ",  y1 = ", y)
+        #print("recta: ",abs_rect)
+        #print("alien: ", self.rect.topleft)
+        if pygame.Rect.colliderect(self.rect, abs_rect):
             self.handle_collision(other)
 
     def destroy(self, other):
         pass
-        
 
     def handle_collision(self, other):
         pass # Do nothing by default
@@ -85,6 +88,10 @@ class Enemy(GameObject):
     def handle_collision(self, other):
         if isinstance(other, Bullet):
             self.kill()
+        if isinstance(other, Spaceship):
+            time.sleep(2)
+            pygame.quit()
+            other.kill()
 
 class Spaceship(GameObject):
     def __init__(self, x, y, radius, center_x, center_y, image_path, center):

@@ -1,7 +1,6 @@
 import math
 import pygame
 import random
-import copy
 import planet
 import enemy
 import map

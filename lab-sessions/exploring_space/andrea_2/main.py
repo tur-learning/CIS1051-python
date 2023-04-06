@@ -61,9 +61,7 @@ bkg_map = map.Map(0., 0., window_x, window_y, zoom_1, "background.png")
 spaceship = entities.Spaceship(0, 0, 10, 0, 0,
                                "spaceship.png",
                                game_window.get_rect().center)
-
 target = entities.Crosshair(0., 0., zoom_2, 0., 0., "target.png")
-
 shot = entities.Bullet(0, 0, zoom_2, 0, 0, "shot.png")
 
 speed = 10
@@ -79,8 +77,9 @@ moon = entities.Planet(x2 + 800, y2, 6, x2, y2, "moon.png")
 
 # Create an enemy
 enemy_group = pygame.sprite.Group()  # Create sprite group for enemies
-alien = entities.Enemy(100., 100., 10, x2, y2, "enemy.png")
-enemy_group.add(alien)  # Add enemies to sprite group
+alien1 = entities.Enemy(2000., 2000., 10, x2, y2, "enemy.png")
+alien2 = entities.Enemy(2500., 2500., 10, 250, 250, "enemy.png")
+enemy_group.add(alien1)  # Add enemies to sprite group
 
 
 end_pos = (-1, -1)
@@ -128,18 +127,21 @@ while True:
     # Draw the alien on top of the map
     for alien in enemy_group:
         alien.collide(shot, x1, y1)
+        alien.collide(spaceship, x1, y1)
+        #print(spaceship.rect)
         #alien.move_around(2)
         alien.draw(background)
 
-    # Draw the ship on the game window center
+    # Draw the spaceship on the game window center)
     spaceship.draw(game_window)
 
     # Get the current mouse position
     mouse_pos = pygame.mouse.get_pos()
 
-    # Draw the target sprite on the game_window
+    # Draw the target sprite on the game window
     target.draw(game_window, mouse_pos)
 
+    # Draw the shot on the game window
     shot.draw(game_window)
 
     pygame.display.update()
