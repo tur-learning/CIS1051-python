@@ -1,9 +1,8 @@
-import math
 import pygame
 import random
-import copy
 import entities
 import map
+import shelve
 
 def show_periodic_background(x1, y1, bkg):
     x1 = (bg_frame.width  + x1 + movement[0]) % bg_frame.width
@@ -81,13 +80,25 @@ alien1 = entities.Enemy(2000., 2000., 10, x2, y2, "enemy.png")
 alien2 = entities.Enemy(2500., 2500., 10, 250, 250, "enemy.png")
 enemy_group.add(alien1)  # Add enemies to sprite group
 
-
 end_pos = (-1, -1)
 
 # Create a black surface background to blit surfaces on
 background = bkg_map.scaled_surface.copy()
 background.fill('black')
 bg_frame = background.get_rect()
+
+filename = 'game_save'
+
+load = input("Do you want to restart from a previously saved game? (y|n)\n")
+if load == "y":
+    db = shelve.open(filename)
+    [x1, y1] = db["position"]
+    spaceship.load(db["spaceship"])
+    moon.load(db["moon"])
+    earth.load(db["earth"])
+    target.load(db["target"])
+    shot.load(db["shot"])
+    db.close()
 
 # Main loop
 while True:
@@ -111,6 +122,16 @@ while True:
         movement[1] = - speed
     elif keys[pygame.K_s] or keys[pygame.K_DOWN]:
         movement[1] =   speed
+    if keys[pygame.K_LCTRL] and keys[pygame.K_z]: 
+        save = shelve.open(filename)
+        save['position']  = [x1, y1]
+        save['spaceship'] = spaceship.save()
+        save['earth']     = earth.save()
+        save['moon']      = moon.save()
+        save['target']    = target.save()
+        save['shot']      = shot.save()
+        save.close()
+        pygame.quit()
 
     x1, y1 = show_periodic_background(x1, y1, background)
 
@@ -128,8 +149,6 @@ while True:
     for alien in enemy_group:
         alien.collide(shot, x1, y1)
         alien.collide(spaceship, x1, y1)
-        #print(spaceship.rect)
-        #alien.move_around(2)
         alien.draw(background)
 
     # Draw the spaceship on the game window center)

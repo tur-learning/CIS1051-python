@@ -7,6 +7,7 @@ class GameObject(pygame.sprite.Sprite):
     def __init__(self, x, y, radius, center_x, center_y, image_path):
         super().__init__()
         self.radius = radius
+        self.path = image_path
         self.surface = pygame.image.load(image_path).convert_alpha()
         # Scale the planet surface to the appropriate size
         self.scaled_surface = pygame.transform.scale(self.surface, (1000/self.radius, 1000/self.radius))
@@ -73,6 +74,18 @@ class GameObject(pygame.sprite.Sprite):
 
     def handle_collision(self, other):
         pass # Do nothing by default
+
+    def save(self):
+        data = [self.radius, self.rect, self.path, self.center_x, self.center_y, self.angle]
+        return data
+
+    def load(self, data):
+        self.radius = data[0]
+        self.rect = data[1]
+        self.path = data[2]
+        self.center_x = data[3]
+        self.center_y = data[4]
+        self.angle = data[5]
 
 class Planet(GameObject):
     def __init__(self, x, y, radius, center_x, center_y, image_path):
