@@ -60,9 +60,9 @@ x2 = random.randint(0, session.window_x)
 y2 = random.randint(0, session.window_y)
 
 # Create planets
-earth = entities.Planet(x2, y2, 2, 5, "earth.png")
-ice = entities.Planet(2000, 2000, 2, 5, "ice.png")
-gas = entities.Planet(1000, 3000, 2, 5, "gas.png")
+earth = entities.Planet(x2, y2, 2, 10, "earth.png")
+ice = entities.Planet(2000, 2000, 2, 10, "ice.png")
+gas = entities.Planet(1000, 3000, 2, 10, "gas.png")
 moon = entities.Planet(x2 + 800, y2, 6, 0, "moon.png")
 planets = [earth, ice, gas]
 

@@ -55,12 +55,12 @@ class GameObject(pygame.sprite.Sprite):
     #    self.rect.x = random.randint(self.radius, screen_width - self.radius)
     #    self.rect.y = random.randint(self.radius, screen_height - self.radius)
 
-    def move_around(self, speed, a=10):
+    def move_around(self, speed, a=2, b=2):
         # Update the angle
         self.angle += speed % 360
         # Calculate the new x and y position based on the angle and radius
         self.rect.centerx = int(self.center_x + a*self.radius * math.cos(math.radians(self.angle)))
-        self.rect.centery = int(self.center_y + a*self.radius * math.sin(math.radians(self.angle)))
+        self.rect.centery = int(self.center_y + b*self.radius * math.sin(math.radians(self.angle)))
 
     def collide(self, other, x, y):
         abs_rect = other.rect.copy()
@@ -119,11 +119,12 @@ class Enemy(GameObject):
     def __init__(self, x, y, radius, angle, image_path):
         super().__init__(x, y, radius, image_path)
         self.speed = random.randint(1,4)
-        self.a = random.randint(0,10)
+        self.a = random.randint(1,10)
+        self.b = random.randint(1,10)
         self.angle = angle
 
     def move_around(self):
-        super().move_around(self.speed, self.a)
+        super().move_around(self.speed, self.a, self.b)
 
     def handle_collision(self, other):
         if isinstance(other, Bullet):
@@ -135,11 +136,10 @@ class Gem(GameObject):
     def __init__(self, x, y, radius, angle, image_path):
         super().__init__(x, y, radius, image_path)
         self.speed = 1
-        self.a = 2
         self.angle = angle
 
     def move_around(self):
-        super().move_around(self.speed, self.a)
+        super().move_around(self.speed)
 
     def handle_collision(self, other):
         if isinstance(other, Spaceship):
