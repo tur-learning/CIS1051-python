@@ -97,7 +97,7 @@ class Planet(GameObject):
         super().__init__(x, y, radius, image_path)
         n_gems = 3
         self.aliens = [Enemy(x, y, 20, 360*i/10, "enemy.png") for i in range(n_enemies)]
-        self.gems = [Gem(x, y, 30, 360*i/n_gems, "dis.png") for i in range(n_gems)]
+        self.gems = [Gem(x, y, 20, 360*i/n_gems, "diamond.png") for i in range(n_gems)]
 
     def handle_collision(self, other):
         pass # Do nothing
