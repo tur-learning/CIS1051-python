@@ -57,7 +57,7 @@ td, th {
    </colgroup>
    <tr>
       <td>
-         <p align="center"><img width="750" src="lectures/slides/img/grokking-algorithms.jpg"></p>
+         <p align="center"><a href="https://www.manning.com/books/grokking-algorithms"><img width="750" src="lectures/slides/img/grokking-algorithms.jpg"></a></p>
       </td>
       <td>
          <div>
@@ -97,7 +97,7 @@ td, th {
          </div>
       </td>
       <td>
-         <p align="center"><img width="750" src="lectures/slides/img/invent.png"></p>
+         <p align="center"><a href="https://inventwithpython.com/invent4thed/"><img width="750" src="lectures/slides/img/invent.png"></a></p>
       </td>
    </tr>
 </table>
@@ -108,7 +108,7 @@ td, th {
    </colgroup>
    <tr>
       <td>
-         <p align="center"><img width="750" src="lectures/slides/img/videogames-patterns.jpg"></p>
+         <p align="center"><a href="https://gameprogrammingpatterns.com/contents.html"><img width="750" src="lectures/slides/img/videogames-patterns.jpg"></a></p>
       </td>
       <td>
          <div>
