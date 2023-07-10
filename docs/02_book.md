@@ -46,7 +46,7 @@ td, th {
          </div>
       </td>
       <td>
-         <p align="center"><img width="750" src="lectures/slides/img/think-python.jpg"></p>
+         <p align="center"><a href="https://greenteapress.com/wp/think-python-2e/"><img width="750" src="lectures/slides/img/think-python.jpg"></a></p>
       </td>
    </tr>
 </table>
