@@ -10,8 +10,10 @@ A [GitHub Page](https://pages.github.com) to help the students navigate the Cour
 
 <ul style="list-style: none;">
   {% for related in site.pages %}
-    {% if related.url != page.url %}
-      <li><a href="{{ site.baseurl }}{{ related.url }}">{{ related.title }}</a></li>
+    {% if related.url != page.url and related.dir == page.dir %}
+      <li>
+        <a href="{{ site.baseurl }}{{ related.url }}">{{ related.title }}</a>
+      </li>
     {% endif %}
   {% endfor %}
 </ul>
