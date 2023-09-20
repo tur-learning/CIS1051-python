@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Intro to Problem solving and Programming in Python</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="reveal.js/dist/reset.css">
+		<link rel="stylesheet" href="reveal.js/dist/reveal.css">
+		<link rel="stylesheet" href="reveal.js/dist/theme/black.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="reveal.js/plugin/highlight/monokai.css">
+	</head>
+
+	<body>
+
+		<div class="reveal">
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+			<section >
+				<section >
+					<h1>Intro to</h1>
+					<h3>Problem solving and</h3>
+					<!-- <h1>and</h1> -->
+					<h3>Programming in Python</h3>
+					<!-- <h4>CIS 1051 - Temple Rome</h4> -->
+					<!-- <p><img src="img/temple-logo-bw.png" alt="LOGO" /></p> -->
+					<p style="color: rgba(255, 255, 255, 0.15); font-size: 20px;">(use the <em>Space</em> key to navigate through all slides)</p>
+				</section>
+				<section>
+					<table>
+						<colgroup>
+						<col width="50%"/>
+						<col width="50%"/>
+						</colgroup>
+						<tr>
+						<td>
+						<p>Prof. Andrea Gallegati</br><a href="tuj81353@temple.edu">tuj81353@temple.edu</a></p>
+						</td>
+						<td>
+						<p>Prof. Dario Abbondanza</br><a href="tuk96119@temple.edu">tuk96119@temple.edu</a></p>
+						</td>
+						</tr>
+					</table>
+				</section>
+				<section>
+					<h4>CIS 1051 - Temple Rome</h4>
+					<h2>GitHub Codespaces</h2>
+				</section>
+			</section >
+			<section>
+				<section>
+					<p>Follow these steps to run Lab Sessions on the browser.</p>
+				</section>
+				<section id="fragments">
+					<p>Go to the following URL: <br> <a href="https://github.com/tur-learning/CIS1051-python">https://github.com/tur-learning/CIS1051-python</a></p>
+				</section>
+				<section>
+					<p>Not yet a community member?</p>
+					<p class="fragment"> Signup on <a href="https://github.com/" target="_blank">GitHub</a> and navigate to the repo </br> <a href="https://github.com/tur-learning/CIS1051-python" target="_blank">tur-learning/CIS1051-python</a></p>
+				</section>
+				<section>
+					<p>click on the button: <br> <code>Use this template &gt; Open in a codespace</code></p>
+					<img src="img/open_codespace.png" alt="Open Codespace">
+				</section>
+				<section>
+					<p>This open a browser-based IDE (vscode) in a new tab.</p>
+				</section>
+				<section data-background="img/repo_codespace.png">
+					<div style="position: absolute; width: 50%; right: 0; box-shadow: 0 1px 4px rgba(255, 255, 255, 0.5), 0 5px 25px rgba(255, 255, 255, 0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+						<h3>from the CLI below</h3>
+						<p> go to the <code>lab-sessions</code> directory <br> and <code>ls</code> all the files within it</p>
+						<pre data-id="code-animation"><code class="hljs bash" data-trim data-line-numbers>
+							cd lab-sessions
+							ls -a
+						</code></pre>
+					</div>
+				</section>
+				<section data-background="img/ide_codespace.png">
+					<div style="position: absolute; width: 50%; right: 0; box-shadow: 0 1px 4px rgba(255, 255, 255, 0.5), 0 5px 25px rgba(255, 255, 255, 0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+						<h3>from the CLI below</h3>
+						<p> source the hidden <code>.env</code> file <br> then launch the <code>setup</code> script </p>
+						<pre data-id="code-animation"><code class="hljs bash" data-trim data-line-numbers>
+							source .env
+							setup
+						</code></pre>
+					</div>
+				</section>
+				<section data-background="img/setup_codespace.png">
+					<div style="position: absolute; width: 50%; right: 0; box-shadow: 0 1px 4px rgba(255, 255, 255, 0.5), 0 5px 25px rgba(255, 255, 255, 0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+						<!-- <h3>from the CLI below</h3> -->
+						<p> this install the necessary dependecies <br> basically pygame and pygbag modules </p>
+					</div>
+				</section>
+				<section data-background="img/update_codespace.png">
+					<div style="position: absolute; width: 50%; right: 0; box-shadow: 0 1px 4px rgba(255, 255, 255, 0.5), 0 5px 25px rgba(255, 255, 255, 0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+						<!-- <h3>from the CLI below</h3> -->
+						<p> or simply lists them all <br> if the <code>setup</code> script was already run</p>
+					</div>
+				</section>
+				<section data-background="img/deploy_codespace.png">
+					<div style="position: absolute; width: 50%; right: 0; box-shadow: 0 1px 4px rgba(255, 255, 255, 0.5), 0 5px 25px rgba(255, 255, 255, 0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+						<!-- <h3>from the CLI below</h3> -->
+						<p> finally <code>cd</code> into the lab, launch the <code>deploy</code> script </br> and click on the <code>Open in Browser</code> pop-up </p>
+						<pre data-id="code-animation"><code class="hljs bash" data-trim data-line-numbers>
+							cd snake/challenge/lab_2/level_00/
+							deploy
+						</code></pre>
+					</div>
+				</section>
+				<section>
+					<p> or simply visit the URL where the game was deployed</p>
+					<img src="img/url_codespace_org.png" alt="Open Codespace">
+					<p class="fragment" data-fragment-index="1">replacing the domain name accordingly, with the one randomly chosen by GitHub, the default port is 8000</p>						 
+					<img class="fragment" data-fragment-index="2" src="img/verbose_space_carnival.png" alt="Open Codespace">
+					<p class="fragment" data-fragment-index="2">(the highlighted string above)</p>
+				</section>
+				<section data-background="img/snake_demo.gif">
+					<h2>... the result should look like THIS!</h2>
+				</section>
+				<section>
+					<p> turn off the Codespace not to waste useful resources</p>
+					<img class="fragment" data-fragment-index="1" src="img/bar_codespace.png" alt="Open Codespace">
+					<p class="fragment" data-fragment-index="1">go to the <code>Codespaces</code> tab (GitHub Navigation Bar) <br> search for the running Codespace and stop it</p>						 
+					<img class="fragment fade-in" data-fragment-index="2" src="img/stop_codespace.png" alt="Open Codespace">
+				</section>
+			</section>
+
+			<section>
+				<h3>This was crafted with</h3>
+				<a href="https://revealjs.com">
+					<img src="https://static.slid.es/reveal/logo-v1/reveal-white-text.svg" alt="reveal.js logo" style="height: 180px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+				</a>
+				<p>
+					<small>A Framework created by <a href="http://hakim.se">Hakim El Hattab</a> and <a href="https://github.com/hakimel/reveal.js/graphs/contributors">contributors</a> <br> to make stunning HTML presentations</small>
+				</p>
+			</section>
+      
+			</div>
+			<!-- class="slides" -->
+		</div>
+		<!-- class="reveal" -->
+
+		<script src="reveal.js/dist/reveal.js"></script>
+		<script src="reveal.js/plugin/zoom/zoom.js"></script>
+		<script src="reveal.js/plugin/notes/notes.js"></script>
+		<script src="reveal.js/plugin/search/search.js"></script>
+		<script src="reveal.js/plugin/markdown/markdown.js"></script>
+		<script src="reveal.js/plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+		<!-- Add this CSS for the logo -->
+		<style>
+		/* Style for the logo */
+		.logo {
+			position: absolute;
+			bottom: 20px; /* Adjust this value to your preference */
+			left: 20px; /* Adjust this value to your preference */
+			width: 100px; /* Adjust the width as needed */
+			z-index: 999; /* Ensure the logo appears above other elements */
+		}
+		</style>
+
+		<!-- Add this HTML for the logo image -->
+		<img src="img/t-logo.png" alt="Logo" class="logo">
+
+	</body>
+</html>

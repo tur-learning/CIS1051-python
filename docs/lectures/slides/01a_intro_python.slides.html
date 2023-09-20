@@ -38,9 +38,20 @@
           <p style="color: rgba(255, 255, 255, 0.15); font-size: 20px;">(use the <em>Space</em> key to navigate through all slides)</p>
         </section>
         <section>
-          <p>Prof. Andrea Gallegati</p>
-          <p>( <a href="tuj81353@temple.edu">tuj81353@temple.edu</a> )</p>
-          <!-- <p><img src="img/temple-logo-bw.png" alt="LOGO" /></p> -->
+					<table>
+						<colgroup>
+						<col width="50%"/>
+						<col width="50%"/>
+						</colgroup>
+						<tr>
+						<td>
+						<p>Prof. Andrea Gallegati</br><a href="tuj81353@temple.edu">tuj81353@temple.edu</a></p>
+						</td>
+						<td>
+						<p>Prof. Dario Abbondanza</br><a href="tuk96119@temple.edu">tuk96119@temple.edu</a></p>
+						</td>
+						</tr>
+					</table>
         </section>
         <section>
           <h4>CIS 1051 - Temple Rome</h4>
@@ -81,20 +92,20 @@
           <p>... is a sequence of instructions that specifies how to perform a computation.</p>
         </section>
         <section>
-          <p>The <strong>computation</strong> might be:</p><p>something mathematical</p>
-          <p><em class="fragment" data-fragment-index="1">as solving a system of equations or finding the roots of a polynomial</em></p>
+          <p>might be <em>something mathematical</em></p>
+          <ul>
+            <li class="fragment" data-fragment-index="1">as solving a system of equations</li>
+            <li class="fragment" data-fragment-index="1">or finding the roots of a polynomial</li>
+          </ul>
         </section>
         <section>
-          <p>but even, a symbolic computation</p>
-          <p><em class="fragment" data-fragment-index="1">as searching and replacing text in a document</em></p>
-          </ul>
-        <!-- </section>
-        <section> -->
+          <p>or ... <em>a symbolic computation:</em></p>
+
           <div class=" highlight python">
-            <pre class="fragment fade-in-then-out" data-fragment-index="1">
+            <pre class="fragment semi-fade-out" data-fragment-index="1">
               <code>
 import re
-
+ 
 with open("doc/document.txt", "r") as file:
   text = file.read()
 
@@ -114,15 +125,17 @@ replacements = {
 }
               </code>
             </pre>
-            <pre class="fragment">
+            <pre class="fragment fade-down" data-fragment-index="1">
 The President of the United States, Donald Trump, has been 
 meeting with Congress and Senate to discuss plans for the economy. 
 Wall Street and taxes are among the main topics of discussion.
             </pre>
+          </div>
         </section>
         <section>
+          <p>searching/replacing text in a document</p>
           <div class=" highlight python">
-            <pre class="fragment fade-out" data-fragment-index="1">
+            <pre class="fragment semi-fade-out" data-fragment-index="2">
               <code>
 for old, new in replacements.items():
   text = re.sub(old, new, text)
@@ -134,7 +147,7 @@ print("\n ... and the replacement is complete! \n")
 print("\n" + text + "\n")
               </code>
             </pre>
-            <pre class="fragment fade-up" data-fragment-index="1">
+            <pre class="fragment fade-down" data-fragment-index="2">
 ... and the replacement is complete! 
 
 The Supreme Leader of the The Banana Republic, Barack Obama, has 
@@ -142,9 +155,9 @@ been meeting with The Honorable Council of Elders and The High
 Council of Wise Ones to discuss plans for the banana economy. Banana
 Street and banana tariffs are among the main topics of discussion.
             </pre>
+          </div>
         </section>
       </section>
-
 
 <!--
 
