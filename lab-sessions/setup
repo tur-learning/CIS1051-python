@@ -1,7 +1,7 @@
 #!/bin/bash
 
 LABS_DIR=$PWD
-cd $CODESPACE_VSCODE_FOLDER/..
+cd /workspaces/
 
 pip list -v | grep pygame || pip install pygame
 pip list -v | grep pygbag || { git clone https://github.com/andreagalle/pygbag.git && \
