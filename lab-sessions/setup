@@ -1,0 +1,10 @@
+#!/bin/bash
+
+LABS_DIR=$PWD
+$CODESPACE_VSCODE_FOLDER/..
+
+pip list -v | grep pygame || pip install pygame
+pip list -v | grep pygbag || { git clone https://github.com/andreagalle/pygbag.git && \
+                               cd pygbag && git checkout gh-codespaces && \
+                               pip install -e $PWD ; }
+cd $LABS_DIR
