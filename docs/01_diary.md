@@ -72,7 +72,7 @@ td, th {
   <tr>
     <td align="left"><a href="https://github.com/tur-learning/CIS1051-python/blob/tur23-fall/lectures/notebooks/04b_interfaces_design.ipynb">Google Colab</a></td>
     <td></td>
-    <td align="right"><a href="03_setup.html#github-codespace-setup">GitHub Codespaces</a></td>
+    <td align="right"><a href="lectures/slides/quickstart.html">GitHub Codespaces</a></td>
   </tr>
   <tr>
     <td align="left"><a href="https://github.com/tur-learning/CIS1051-python/blob/tur23-fall/lectures/notebooks/04b_interfaces_design.ipynb">Turtle graphics</a></td>
