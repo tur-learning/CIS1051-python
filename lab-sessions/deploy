@@ -1,3 +1,4 @@
 #!/bin/bash
 
-pygbag --gh_codespace "${CODESPACE_NAME}" src/main.py
+#pygbag --gh_codespace "${CODESPACE_NAME}" src/main.py
+pygbag --docker_workspace --port 8030 main.py
