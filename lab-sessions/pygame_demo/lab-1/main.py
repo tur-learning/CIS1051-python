@@ -8,70 +8,63 @@ async def main():
     RED   = (255,   0,   0)
     GREEN = (  0, 255,   0)
     BLUE  = (  0,   0, 255)
-    CUSTOM  = (  255,   125, 125)
+    CUSTOM = (255, 125, 0)
 
     DOWNLEFT  = 'downleft'
     DOWNRIGHT = 'downright'
     UPLEFT    = 'upleft'
     UPRIGHT   = 'upright'
-
-    MOVESPEED = 4
-
-    # boxes definition
-    b1 = {'rect':pygame.Rect(300, 80, 50, 100),
-        'color':RED, 'dir':UPRIGHT}
-    b2 = {'rect':pygame.Rect(200, 200, 20, 20),
-        'color':GREEN, 'dir':UPLEFT}
-    b3 = {'rect':pygame.Rect(100, 150, 60, 60),
-        'color':BLUE, 'dir':DOWNLEFT}
-    boxes = [b1, b2, b3]
+    MOVESPEED = 1
 
     pygame.init()
 
-    WWIDTH  = 800 ; WHEIGHT = 300
-    windowSurface = pygame.display.set_mode((WWIDTH,
-                                        WHEIGHT))
-    pygame.display.set_caption('Animation')
+    WINDOWWIDTH = 800
+    WINDOWHEIGHT = 800
+    windowSize = (WINDOWWIDTH, WINDOWHEIGHT)
+    windowSurface = pygame.display.set_mode(windowSize)
+    pygame.display.set_caption('Bouncing boxes')
 
     windowSurface.fill(CUSTOM)
 
-
+    # drawing a polygon on the main surface
     pygame.draw.polygon(windowSurface, GREEN, 
                         ((146, 0), (291, 106),
                         (236, 277), (56, 277), (0, 106)))
 
-    # Draw a couple of lines
-    pygame.draw.line(windowSurface, BLUE, 
-                    (60, 60), (120, 60), 4)
+    pygame.draw.line(windowSurface, 
+                    BLUE, 
+                    (60, 60), 
+                    (120, 60), 
+                    4)
     pygame.draw.line(windowSurface, BLUE, 
                     (120, 60), (60, 120))
 
-    # Draw a white circle
     pygame.draw.circle(windowSurface, WHITE, 
-                    (300, 50), 50, 10)
-
-    # Draw an ellipse
-    pygame.draw.ellipse(windowSurface, BLACK, 
-                        (300, 250, 40, 80), 1)
+                    (300, 50), 20, 10)
 
     basicFont = pygame.font.SysFont(None, 48)
-    text = basicFont.render('Hello world!', True,
-                            WHITE, BLUE)
+    text = basicFont.render('Hello world!', True, WHITE, BLUE)
 
     textRect = text.get_rect()
+
     textRect.centerx = windowSurface.get_rect().centerx
     textRect.centery = windowSurface.get_rect().centery
 
-    left = 200
-    top = 100
-    width = 50
-    height = 200
-    pygame.draw.rect(windowSurface, BLACK, textRect)
-
     windowSurface.blit(text, textRect)
 
+    # declaring a few boxes
+    b1 = {'rect':pygame.Rect(300, 80, 50, 100), 'color':RED, 'dir':UPRIGHT}
+    b2 = {'rect':pygame.Rect(200, 200, 20, 20), 'color':GREEN, 'dir':UPLEFT}
+    b3 = {'rect':pygame.Rect(100, 150, 60, 60), 'color':BLUE, 'dir':DOWNLEFT}
+    boxes = [b1, b2, b3]
+
     while True:
-        windowSurface.fill(WHITE)
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+
+        windowSurface.fill(CUSTOM)
 
         for b in boxes:
             if b['dir'] == DOWNLEFT:
@@ -93,8 +86,8 @@ async def main():
                     b['dir'] = DOWNLEFT
                 if b['dir'] == UPRIGHT:
                     b['dir'] = DOWNRIGHT
-            
-            if b['rect'].bottom > WHEIGHT:
+
+            if b['rect'].bottom > WINDOWHEIGHT:
                 # The box has moved past the bottom.
                 if b['dir'] == DOWNLEFT:
                     b['dir'] = UPLEFT
@@ -108,7 +101,7 @@ async def main():
                 if b['dir'] == UPLEFT:
                     b['dir'] = UPRIGHT
 
-            if b['rect'].right > WWIDTH:
+            if b['rect'].right > WINDOWWIDTH:
                 # The box has moved past the right side.
                 if b['dir'] == DOWNRIGHT:
                     b['dir'] = DOWNLEFT
@@ -117,15 +110,7 @@ async def main():
             
             pygame.draw.rect(windowSurface, b['color'], b['rect'])
 
-        # Do something
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                pygame.quit()
-                sys.exit()
-
-        # update the window
         pygame.display.update()
-        time.sleep(0.02)
         await asyncio.sleep(0)
 
 if __name__ == "__main__":
