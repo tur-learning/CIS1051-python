@@ -9,9 +9,9 @@ The snake game is subdivided in different _code modules_ (the files with the _.p
 
 ## Lab session 2
 
-In order to complete the assignment, follow these steps. If you need help, you can always have a look at the codes included in the next level_xx directories:
+In order to complete the assignment, follow these steps. After each step, test your solution by running the game (try to test edge cases as well). If you need help, you can always have a look at the codes included in the next level_xx directories:
 
-1. Add the _game over conditions_ when the snake touches itself in the `main.py` file. At the moment, the game breaks only when the snake touches the boundaries of the game window:
+1. Add the _game over conditions_ when the snake touches itself in the `main.py` file. At the moment, the game ends only when the snake touches the boundaries of the game window:
   ```
   # Game Over conditions
   if snake.position[0] < 0 or snake.position[0] > game.window_x-10:
