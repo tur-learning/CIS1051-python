@@ -21,5 +21,5 @@ In order to complete the assignment, follow these steps. After each step, test y
   ```
 You should add a condition to call the `game.game_over` function also when the snake touches itself.
 
-3. Add a way to  _spawn fruits_ to be eaten by the snake in the separate module called `fruit.py`, which must be imported in the `main.py` file. Initialize the fruit position in a random place inside the game window, in the `main.py` file, and draw it using the pygame built-in functions.
+3. Add a way to  _spawn fruits_ to be eaten by the snake in the separate module called `fruit.py`, which must be imported in the `main.py` file. Initialize the fruit position in a random place inside the game window in the `main.py` file (use the _random_pos_ function defined in the `game-py` module), and draw it using the pygame built-in functions.
 4. Decrease the initial snake size to 4 blocks and add the ability to _eat fruits_. You should design this function by yourself, but some suggestions are already included in the above mentioned modules. First, check for the position to understand if the fruit and the snake collided. If yes, the snake must grow. If the fruit is eaten, increase the game score by 10 and spawn a new fruit in a random position.
