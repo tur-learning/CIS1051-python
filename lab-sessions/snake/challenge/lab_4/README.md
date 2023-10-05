@@ -1,8 +1,8 @@
-# Lab session 4
+## Lab session 4
 
-7. Add random rotation to the previously generated _corner walls_.
-8. Add a basic *Menu* that works with user inputs, using python `input()` function. The following options must be available to the player at the game start:
-- Whether to add periodicity or not to the frame boundaries;
--  Whether to play with random walls generation;
-9. Add the possibility to _change the speed_ of the snake at runtime, by pressing a key. Use the pygame built-in function `pygame.key.get_pressed()` to check for the event to happen. Look at the pygame documentation online. Add _fruits lifetime_. After 5000 ms they will be replaced if they do not get eaten. Use the `pygame.time.get_ticks()`
-10. Replace the previously designed menu with a `menu` object from the pygame_menu library.
+Starting from where you left after concluding level_06 of lab session 3, complete the following steps to fulfill the assignment:
+
+7. Add **random rotation** to the previously generated _corner walls_. At the moment the _corner walls_ are generated such that their direction is always the same. Find a way to generate corners that _randomly_ point to one of the four possible directions (top-left, top-right, bottom-left, bottom-right). You should modify the function that generates the _corner_walls_ adding the least amount of parameters that are necessary to accomplish this task, without code repetitions.
+8. Skip this step and go to step 9.
+9. Add the possibility to **change the speed** of the snake at runtime, by pressing a key of your choice. Use the pygame built-in function `pygame.key.get_pressed()` to check for the event to happen. Look at the pygame [documentation](https://www.pygame.org/docs/) online. Add **fruits lifetime**. After 5000 ms of life, a fruit will be replaced if it does not get eaten. Use the pygame built-in function `pygame.time.get_ticks()`.
+10. Skip this step. 
