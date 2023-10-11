@@ -1,4 +1,5 @@
 import pygame
+import fruit
 import game
 # import fruit #TODO
 
@@ -9,14 +10,7 @@ position = [100, 50]
 body = [ [100, 50],
          [ 90, 50],
          [ 80, 50],
-         [ 70, 50],
-         [ 60, 50],
-         [ 50, 50],
-         [ 40, 50],
-         [ 30, 50],
-         [ 20, 50],
-         [ 10, 50],
-         [ 0, 50] ]
+         [ 70, 50]]
 
 def draw(game_window):
     for pos in body:
@@ -26,22 +20,31 @@ def draw(game_window):
 def move():
     grow = False
     
+    #body.insert(0, list(position))
+    #body.pop()
+
+    # Snake body growing mechanism
+    # if fruits and snakes collide then scores
+    # will be incremented by 10
     body.insert(0, list(position))
-    body.pop()
-
-	# Snake body growing mechanism
-	# if fruits and snakes collide then scores
-	# will be incremented by 10
-
     #TODO
-    # grow = eat()
-
-    # if grow == False:
+    grow = eat()
+#the growth mechanism where if growth is true, the fruit will despawn then respawn in a different place and then the score should go up by ten.
+    if grow == False:
+        fruit.spawn = True
+        body.pop()
+    else:
+        fruit.spawn = False
+        game.score += 10
     #     #TODO
-    # else:
     #     #TODO
 
-# def eat():
+def eat():
+    if position == fruit.posi:
+        print('om nom nom')
+        return True
+    else:
+        return False
 #     #TODO
 #         return True
 #     else:
