@@ -6,6 +6,8 @@ import asyncio
 import game
 import snake
 import fruit
+import wall
+
 async def main():
 	# Initialising game
 	game_window = game.init()
@@ -16,20 +18,20 @@ async def main():
 
 	# Setup fruit
 	fruit.init()
-
+	#wall.init()
 	# Main Function
 	while True:
 		
 		# handling key events
 		for event in pygame.event.get():
 			if event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_UP:
+				if event.key == pygame.K_w:
 					change_to = 'UP'
-				if event.key == pygame.K_DOWN:
+				if event.key == pygame.K_s:
 					change_to = 'DOWN'
-				if event.key == pygame.K_LEFT:
+				if event.key == pygame.K_a:
 					change_to = 'LEFT'
-				if event.key == pygame.K_RIGHT:
+				if event.key == pygame.K_d:
 					change_to = 'RIGHT'
 
 		# We don't want the new direction to be the
@@ -55,10 +57,12 @@ async def main():
 
 		# Check if the fruit was eaten #TODO
 		snake.move()
-
+#spawn a fruit if a fruit is not present THIS RANDOMLY CHANGES THE WALL POSITION TOO. I NEED TO MAKE IT KEEP THE OLD WALL AND ADD A NEW ONE
 		if fruit.spawn == False:
 			fruit.spawn = True
 			fruit.position = fruit.locate()
+			wall.spawn = True
+			wall.position = wall.locate()
 			
 		# Fill the game background
 		game.fill(game_window)
@@ -69,14 +73,18 @@ async def main():
 		# Spawn the fruit randomly
 		fruit.draw(game_window)
 
-		# Periodic boundary conditions
-		if snake.position[0] < 0:
-			snake.position[0] = game.window_x-10
-		if snake.position[0] > game.window_x-10:
+		#spawn a wall randomly
+		wall.draw(game_window)
+
+		
+		#adding some stuff to try to make the snake pop out the other side. WOrks but there is an interesting edge case at the top that is hard to make happen but the graphics go wonky and you randomly die.
+		if snake.position[0] <= 0:
+			snake.position[0] = game.window_x 
+		elif snake.position[0] >= game.window_x:
 			snake.position[0] = 0
-		if snake.position[1] < 0:
-			snake.position[1] = game.window_y-10
-		if snake.position[1] > game.window_y-10:
+		if snake.position[1]<= 0:
+			snake.position[1] = game.window_y 
+		elif snake.position[1] >= game.window_y:
 			snake.position[1] = 0
 
 		# Touching the snake body
@@ -85,6 +93,11 @@ async def main():
 			if snake.position == block:
 				game.game_over(game_window)
 		
+		#Need to make the wall collision function here
+		#gonna be similar to above i think im not sure tho
+		#if wall.wall_col() == True:
+			#game.game_over(game_window)
+			
 
 		# Refresh game
 		game.update(game_window)

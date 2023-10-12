@@ -38,3 +38,9 @@ def eat():
         return True
     else:
         return False
+
+def wall_col():
+    if position == wall.position:
+        return True
+    else:
+        return False
