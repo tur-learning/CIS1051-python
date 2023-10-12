@@ -60,7 +60,7 @@ async def main():
 		snake.move()
 		if snake.position == fruit.posi:
 			fruit.spawn = False
-			snake.eat
+			snake.eat()
 			
 	
 
