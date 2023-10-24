@@ -17,7 +17,6 @@ async def main():
 
 	# Setup fruit
 	# #TODO
-	fruit.init()
 
 	# Main Function
 	while True:
@@ -25,13 +24,13 @@ async def main():
 		# handling key events
 		for event in pygame.event.get():
 			if event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_w:
+				if event.key == pygame.K_UP:
 					change_to = 'UP'
-				if event.key == pygame.K_s:
+				if event.key == pygame.K_DOWN:
 					change_to = 'DOWN'
-				if event.key == pygame.K_a:
+				if event.key == pygame.K_LEFT:
 					change_to = 'LEFT'
-				if event.key == pygame.K_d:
+				if event.key == pygame.K_RIGHT:
 					change_to = 'RIGHT'
 
 		# We don't want the new direction to be the
@@ -56,18 +55,9 @@ async def main():
 			snake.position[0] += 10
 
 		# Check if the fruit was eaten #TODO
-		#if the fruit is eaten, despawn the fruit so that the below if statement can respawn it properly. 
 		snake.move()
-		if snake.position == fruit.posi:
-			fruit.spawn = False
-			snake.eat()
-			
-	
 
-		#if the fruit is not spawned, spawn the fruit and call the set the position to the locate function
-		if fruit.spawn == False: 
-			fruit.spawn = True
-			fruit.posi = fruit.locate()
+		# if fruit.spawn == False: #TODO
 		# 	#TODO
 		# 	#TODO
 			
@@ -77,10 +67,8 @@ async def main():
 		# Move the snake body
 		snake.draw(game_window)
 
-		# Spawn the fruit randomly. This function draws the fruit in a random position on the board.
-		fruit.draw(game_window)
-		
-			
+		# Spawn the fruit randomly #TODO
+		# fruit.draw(game_window)
 
 		# Game Over conditions
 		if snake.position[0] < 0 or snake.position[0] > game.window_x-10:
@@ -90,10 +78,8 @@ async def main():
 
 		# Touching the snake body
 		# Implement game over conditions if the snake touches itself #TODO
-		for block in snake.body[1:]:
-			if snake.position == block:
-				game.game_over(game_window)
-
+		# for block in snake.body[1:]:
+		# ...
 
 		# Refresh game
 		game.update(game_window)
