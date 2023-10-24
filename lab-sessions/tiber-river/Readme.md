@@ -1,19 +1,29 @@
 ## Python installation (mac)
 
 First, you'll need to install Homebrew if it's not already installed. Homebrew is a package manager for macOS that simplifies the installation of software.
-```/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"```
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
 
 Once Homebrew is installed, use it to install Python:
-```brew install python```
+```
+brew install python
+```
 
 To ensure that Python 3 was installed successfully, open a terminal and run the following command:
-```python3 --version```
+```
+python3 --version
+```
 
 It's a good practice to ensure that pip (Python's package installer) is up-to-date. You can upgrade pip using the following command:
-```pip3 install --upgrade pip```
+```
+pip3 install --upgrade pip
+```
 
 Install the requirements included in the current folder
-```pip install -r requirements.txt```
+```
+pip install -r requirements.txt
+```
 
 ## Assignment instructions
 Navigate to the `assets` folder and use the `asset_creator.py` script to generate 6 screenshots of the 3D views of the map that will be used as a background for the game. You should progressively cover all the Tiber river.
