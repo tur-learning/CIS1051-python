@@ -22,7 +22,7 @@ pip3 install --upgrade pip
 
 Install the requirements included in the current folder
 ```
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ## Assignment instructions
