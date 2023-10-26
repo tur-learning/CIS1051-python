@@ -39,14 +39,14 @@ async def main():
             player_pos[0] -= 10
             if player_pos[0] < 0:
                 player_pos[0] = window_size[0]  # Wrap around to the right side
-                background_index = (background_index + 1) #% len(tiles)
+                background_index = (background_index + 1) % len(tiles)
                 
 
         if keys[pygame.K_RIGHT]:
             player_pos[0] += 10
             if player_pos[0] > window_size[0]:
                 player_pos[0] = 0
-                background_index = (background_index - 1) #% len(tiles)
+                background_index = (background_index - 1) % len(tiles)
 
         if keys[pygame.K_UP]:
             player_pos[1] -= 10
