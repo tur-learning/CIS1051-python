@@ -3,6 +3,7 @@ import game
 import fruit
 import time
 import wall
+import main
 
 # defining snake default position
 position = [100, 50]
@@ -52,5 +53,5 @@ def eat():
     else:
         return False
 
-last_eaten_time = time.time()
+
 

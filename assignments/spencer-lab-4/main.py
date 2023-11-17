@@ -13,16 +13,19 @@ async def main():
 	# Initialising game
 	game_window = game.init()
 
+	
+
 	# setting default snake direction towards right
 	direction = 'RIGHT'
 	change_to = direction
+
+	last_eaten_time = 0
 
 	# Setup fruit
 	fruit.init()
 	
 	# Main Function
 	while True:
-		
 		# handling key events
 		for event in pygame.event.get():
 			if event.type == pygame.KEYDOWN:
@@ -57,17 +60,22 @@ async def main():
 			snake.position[0] += 10
 
 		# Check if the fruit was eaten #TODO
+		
 		snake.move()
 
+		
 		#if a fruit is not eaten within 5 seconds it should respawn. This way of doing it is easier than pygames built in functions. I just copied it from the already written code in the game script that i was given :)
-		if time.time() - snake.last_eaten_time >= 5:  # Check if 5 seconds have passed
-			fruit.spawn = False 
-			snake.last_eaten_time = time.time()
+		#if time.time() - last_eaten_time >= 5:
+			#fruit.spawn = False 
+			#last_eaten_time = time.time()
+
+		
 
 #spawn a fruit if a fruit is not present. It used to add a new wall but i moved that function to the eating function to make it so the walls are only added when a fruit is eaten.
-		if fruit.spawn == False:
+		if fruit.spawn == False or time.time() - last_eaten_time >= 5:
 			fruit.spawn = True
 			fruit.position = fruit.locate()
+			last_eaten_time = time.time()
 			for block in wall.walls_on_screen:
 				while fruit.position == block:
 					fruit.position = fruit.locate()
