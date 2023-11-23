@@ -52,7 +52,8 @@ async def main():
     main_character = environment.Character(character_image,game_logic.player_pos)
     bad_guy = enemy.BadGuy(game_logic.enemy_pos[0], game_logic.enemy_pos[1], enemy_width,enemy_height, enemy_image)
    
-
+   #main characters shot bullets
+    bullet_group = pygame.sprite.Group()
 
 
     running = True
@@ -64,8 +65,8 @@ async def main():
         
         main_character.update(worldmap.col_collide, worldmap.col_top)
     
-
-
+        
+    
         
 
         #this is a background image
@@ -86,11 +87,14 @@ async def main():
         screen.blit(environment.character_image, game_logic.player_pos)  
 
         current_time = pygame.time.get_ticks() / 1000  # Convert milliseconds to seconds
-        bad_guy.timer(current_time, game_logic.player_pos, 2, bullet_dimension, bullet_dimension)
+        bad_guy.timer(current_time, game_logic.player_pos, bullet_dimension, bullet_dimension)
+
+       
+        
 
         enemy.all_sprites.draw(screen)
 
-       # bad_guy.update(enemy.walking_sprites,)
+     
 
         for bullet in bad_guy.bullets:
             bullet.draw(screen)
@@ -99,8 +103,24 @@ async def main():
         for bullet in bad_guy.bullets:
             bullet.update()
         
-        bad_guy.bullet_detect_env(worldmap.bullet_col)
         
+
+    #trying to handle the shooting detection
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                main_character.shoot(bullet_group, bullet_dimension, bullet_dimension)
+
+        # Update and draw bullets
+        bullet_group.update()
+        bullet_group.draw(screen)
+        
+        
+        bad_guy.bullet_detect_env(worldmap.bullet_col)
+        main_character.bullet_detect_env(bullet_group, worldmap.bullet_col)
+        main_character.kill_enemy(bullet_group, enemy.all_sprites)
+        bad_guy.update(enemy.walking_sprites,worldmap.col_collide)
+
+
         draw_grid()
 
         pygame.display.flip()

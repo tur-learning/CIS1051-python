@@ -3,7 +3,7 @@ import pygame
 import time
 import math
 import game_logic
-
+from pygame.math import Vector2
 
 
 class Characters(pygame.sprite.Sprite):
@@ -28,42 +28,39 @@ class BadGuy(pygame.sprite.Sprite):
 		self.bad_guy_sprite = Characters(x, y, width, height, image)
 		self.rect = self.bad_guy_sprite.rect
 		self.bullets = []
-		self.bullet_speed = 2
+		self.bullet_speed = 3.5
 		self.fire_time = 0
+		self.direction = 1  # Initial direction of movement, 1 for right, -1 for left
+		self.speed = 2  # Movement speed
 
-	#def update(self, sprites, col):
-	#	game_logic.delta_x = 2
-		
-	#	for tile in col:
-	#		if sprites.rect.colliderect(col):
-	#			game_logic.delta_x = -1*(game_logic.delta_x)
-	#	for man in sprites:
-	#		man.x = man.x + game_logic.delta_x
+
+		self.rect.x += self.direction * self.speed
 
 	
 	def shoot(self, player_pos,bullet_speed, bullet_height, bullet_width):
-		#calculate direction
-		direction = [player_pos[0] - self.rect.x, player_pos[1] - self.rect.y]
+		if game_logic.can_shoot:
+				#calculate direction
+			direction = Vector2((player_pos[0]) - (self.rect.x), (player_pos[1]) - (self.rect.y))
+		
+			if direction.length() != 0:  # Ensure the length is not zero to avoid division by zero
+				direction.normalize_ip()
 
-        # Normalize direction vector
-		length = math.sqrt(direction[0]**2 + direction[1]**2)
-		if length != 0:
-			direction = [direction[0] / length, direction[1] / length]
+				bullet_pos = Vector2(self.rect.x + 20, self.rect.y)
 
-        # Set the bullet's velocity based on normalized speed that isnt working
-		bullet_velocity = [direction[0] * bullet_speed, direction[1] * bullet_speed]
+				bullet_velocity = [direction.x * bullet_speed, direction.y * bullet_speed]
+				# Create a bullet instance and add it to the list of bullets, along with position and velocity
+				bullet = Bullet(bullet_pos.x, bullet_pos.y, bullet_width, bullet_height, bullet_velocity)
+				self.bullets.append(bullet)
 
-        # Create a bullet instance and add it to list of bullets, along with position and velocity
-		bullet = Bullet(self.rect.x, self.rect.y, bullet_width, bullet_height, bullet_velocity)
-		self.bullets.append(bullet)
+				# Update fire time
+				self.fire_time = pygame.time.get_ticks() / 1000  # Convert milliseconds to seconds
 
-		# Update firetime
-		self.fire_time = pygame.time.get_ticks() / 1000  # Convert milliseconds to seconds
 
 		
-	def timer(self, gametime, player_pos, bullet_speed, bullet_height, bullet_width):
+	def timer(self, gametime, player_pos, bullet_height, bullet_width):
 		if gametime - self.fire_time >= 3:
-			self.shoot(player_pos, bullet_speed, bullet_height, bullet_width)
+			self.shoot(player_pos, self.bullet_speed, bullet_height, bullet_width)
+			
 
 	
 	def draw(self,screen):
@@ -83,16 +80,29 @@ class BadGuy(pygame.sprite.Sprite):
 	def image(self):
 		return self.bad_guy_sprite.image
 	
+	def update(self,badguy, columns):
+        # Update the position based on the current direction and speed
+		self.rect.x += self.direction * self.speed
+
+        # Check for collision with columns
+		for column in columns:
+			for man in badguy.sprites:
+				if man.colliderect(column):
+					# Change the direction if there is a collision
+					self.direction *= -1
+					break
+
 
 
 class Bullet(pygame.sprite.Sprite):
-	#need to figure out the width and stuff
 	def __init__(self, x, y, bullet_width, bullet_height, velocity):
-		self.rect = pygame.Rect(x, y, bullet_width, bullet_height)
+		super().__init__()
+		self.image = pygame.Surface((bullet_width, bullet_height))
+		self.image.fill((255, 0, 0))  # You can customize the color
+		self.rect = self.image.get_rect()
+		self.rect.x = x
+		self.rect.y = y
 		self.velocity = velocity
-
-
-	# Update the position based on the velocity
 	def update(self):
 		self.rect.x += self.velocity[0]
 		self.rect.y += self.velocity[1]
@@ -108,6 +118,6 @@ class Bullet(pygame.sprite.Sprite):
 all_sprites = pygame.sprite.Group()
 walking_sprites = pygame.sprite.Group()
 enemy1 = BadGuy(game_logic.enemy_pos[0], game_logic.enemy_pos[1], 40, 50, pygame.image.load('img/roman_soldier.png'))
-enemy2 = BadGuy(500,465,40,50,pygame.image.load('img/roman_soldier.png'))
+enemy2 = BadGuy(500,450,40,50,pygame.image.load('img/roman_soldier.png'))
 all_sprites.add(enemy1, enemy2)
 walking_sprites.add(enemy2)

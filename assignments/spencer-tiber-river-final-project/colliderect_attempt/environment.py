@@ -3,7 +3,8 @@ import pygame
 import time
 import math
 import game_logic
-
+import enemy
+import main
 
 #TODO
 #make place for bad guy to stand
@@ -11,7 +12,7 @@ import game_logic
 #I NEED TO FIX THE COLLISION WITH THE TOP OF THE COLUMN
     
     #making the character a little julius cesar
-character_image = pygame.image.load('img/red.png')  # Replace 'character.png' with the file path of your character's image
+character_image = pygame.image.load('img/julius cesar.png')  # Replace 'character.png' with the file path of your character's image
 
     #establishing character dimensions and scaling the image accordingly
 character_width = 30  
@@ -33,31 +34,93 @@ class Character():
         self.collision = False
         self.rect.x = initial_position[0]
         self.rect.y = initial_position[1]
+        self.bullets = []
         
+        #player collision logic for hitting the columns.
     def player_collide(self, column, top):
             dummy_rect = pygame.Rect(game_logic.dummy_x,game_logic.dummy_y,30,40)
             for tile in column:
                 for i in top:
                     if dummy_rect.colliderect(tile):
                         self.collision = True
-                        if game_logic.dummy_y + 37 < i.y:
+                        if game_logic.dummy_y + 37.1 < i.y:
                             game_logic.delta_y = 0
-                            game_logic.jumping = False
                             game_logic.player_pos[1] = i.y - 40.01
+                            game_logic.jumping = False
+                            game_logic.jump_counter = game_logic.jump_height
+                            game_logic.falling = False
                         else:
                             game_logic.delta_x = 0
-                            
+                            if game_logic.jump_counter <= 0:
+                                game_logic.falling = True
 
-            
+#handling the players jumping so the delta_y can be modified after collision is detected
+    def player_jump(self):
+        keys = pygame.key.get_pressed()
+        #if the space bar is hit and the player is not jumping, set the player the jumping state and run the function to jump
+        if (keys[pygame.K_SPACE]or keys[pygame.K_w]) and game_logic.jumping == False:
+            game_logic.jumping = True
+    
+        if game_logic.jumping == True and game_logic.falling == False:
+            if game_logic.jump_counter > 0:
+                game_logic.delta_y -= 5
+                game_logic.jump_counter -=5
+                
+    #shooting mechanics for the player that point at the mouse and initiate when the mouse is clicked                   
+    def shoot(self, bullet_group, bullet_width, bullet_height):
+        mouse_pos = pygame.mouse.get_pos()
+        direction = pygame.math.Vector2(mouse_pos[0] - game_logic.player_pos[0], mouse_pos[1] - game_logic.player_pos[1])
+        if direction.length() != 0:
+            direction.normalize_ip()
+
+        # Calculate the starting position of the bullet based on the player's current position
+        bullet_start_x = game_logic.player_pos[0] + (self.rect.width // 2) - (bullet_width // 2)
+        bullet_start_y = game_logic.player_pos[1] + (self.rect.height // 2) - (bullet_height // 2)
+
+        bullet = enemy.Bullet(bullet_start_x, bullet_start_y, bullet_width, bullet_height, [direction.x * 3, direction.y * 3])
+        bullet_group.add(bullet)
+
+    def draw(self, screen):
+        for bullet in self.bullets:
+            bullet.draw(screen)
+
+    #detecting player bullets hitting the environment
+    def bullet_detect_env(self, bullet_group, bullet_col): 
+        bullets_to_remove = []
+        for bullet in bullet_group.sprites():  # Iterate over sprites in the group
+            for tile in bullet_col:
+                if bullet.rect.colliderect(tile[1]):  # Assuming tile is a pair (image, rect)
+                    bullets_to_remove.append(bullet)
+        for bullet in bullets_to_remove:
+            bullet_group.remove(bullet)
+
+    #logic to kill enemies if bullets hit them
+    def kill_enemy(self, bullet_group, enemy_group):
+        for bullet in bullet_group.sprites():
+            for badguy in enemy_group.sprites():
+                if bullet.rect.colliderect(badguy):
+                    badguy.kill()
+                    bullet.kill()
+                    game_logic.can_shoot = False
+                 
+                    
 
     # Update the sprite's position
     def update(self, column, top):
+        #detecting if the player is falling so that they cannot jump when falling. This was an issue when falling off the columns. The 1.9 value comes from the normal difference between values being 2
+        if game_logic.player_pos[1] - game_logic.y_detect > 1.99:
+            game_logic.falling = True
         
+        game_logic.y_detect = game_logic.player_pos[1]
+
+        #setting variables to base values so 
         self.collision = False
         game_logic.delta_x = 0
         game_logic.delta_y = 0
         game_logic.dummy_x = game_logic.player_pos[0]
         game_logic.dummy_y = game_logic.player_pos[1]
+
+
           #player movement
         keys = pygame.key.get_pressed()
   
@@ -65,14 +128,7 @@ class Character():
             game_logic.delta_x -= 3
         if keys[pygame.K_d]:
             game_logic.delta_x += 3
-        #if the space bar is hit and the player is not jumping, set the player the jumping state and run the function to jump
-        if (keys[pygame.K_SPACE]or keys[pygame.K_w]) and game_logic.jumping == False:
-            game_logic.jumping = True
-        
-        if game_logic.jumping == True:
-            if game_logic.jump_counter > 0:
-                game_logic.delta_y -= 5
-                game_logic.jump_counter -=5
+
 
         if self.collision == False:
             if game_logic.player_pos[1] < 465:
@@ -82,6 +138,7 @@ class Character():
                 # Character has landed, reset fall speed
                 game_logic.fall = 0
                 game_logic.jumping = False
+                game_logic.falling = False
                 game_logic.jump_counter = game_logic.jump_height
 
 
@@ -104,14 +161,16 @@ class Character():
         self.char_rect.y = game_logic.player_pos[1]
 
        
-       
         game_logic.dummy_x = game_logic.dummy_x + game_logic.delta_x
         game_logic.dummy_y = game_logic.dummy_y + game_logic.delta_y
 
-        self.player_collide(column, top)
+        self.player_collide(column, top) 
+
+        self.player_jump()
 
         game_logic.player_pos[0] = game_logic.player_pos[0] + game_logic.delta_x
         game_logic.player_pos[1] = game_logic.player_pos[1] + game_logic.delta_y
+    
         
 
 
