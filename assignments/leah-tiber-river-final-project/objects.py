@@ -34,7 +34,8 @@ class Boat():
         tile_y = int(self.rect.y / tile_size)
         
         if 0 <= tile_y < len(tiles) and 0 <= tile_x < len(tiles[0]) and tiles[tile_y][tile_x] == 0:
-            self.display_game_over_screen()
+            #self.display_game_over_screen()
+            self.game_over = True
     
     def display_game_over_screen(self):
         self.game_manager.display_game_over_screen()        
@@ -87,4 +88,27 @@ class MySprite(pygame.sprite.Sprite):
             self.rect.x = 0
             self.generate_trash(tiles)
             
-            
+
+class Trash(pygame.sprite.Sprite):
+    def __init__(self, x, y, screen_width, tile_size, tiles):
+        super().__init__()
+        self.trash_types = ["objects/bottle.png", "objects/cig.png", "objects/twig.png"]
+        original_image = pygame.image.load(random.choice(self.trash_types))
+        self.image = pygame.transform.scale(original_image, (0.5*tile_size, 0.5*tile_size))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.screen_width = screen_width
+        self.tiles = tiles
+        self.tile_size = tile_size
+        
+    def generate_trash(self):
+        x = 0
+        y = random.uniform(self.tile_size, (len(self.tiles) - 2)*self.tile_size)
+        self.__init__(x, y, self.screen_width, self.tile_size, self.tiles)
+                
+    def update(self):
+        self.rect.x += 5
+        if self.rect.x > self.screen_width:
+            self.rect.x = 0
+            self.generate_trash()

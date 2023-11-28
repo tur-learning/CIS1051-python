@@ -1,8 +1,9 @@
 import pygame
 import sys
 import asyncio 
-from objects import Boat, GameManager, MySprite
+from objects import Boat, GameManager, MySprite, Trash
 import time
+import random
 
 
 async def main():
@@ -18,16 +19,26 @@ async def main():
     [0, 0, 0, 0, 0, 0, 0 ,0 ,0, 0]
 ]
 
-    screen = pygame.display.set_mode((tile_size * len(tiles[0]), tile_size * len(tiles)))
+    width = tile_size * len(tiles[0])
+    height = tile_size * len(tiles)
+    screen = pygame.display.set_mode((width, height))
     screen_width = tile_size * len(tiles[0])
+    screen_width = screen.get_width()
 
 
     water_tile = pygame.image.load("objects/waterimg.jpeg")
     rock_tile = pygame.image.load("objects/rock_tile.png")
 
-    sprite1 = MySprite("objects/bottle.png", 30, 30, screen_width, tile_size)
-    sprite2 = MySprite("objects/cig.png", 30, 20, screen_width, tile_size)
-    sprite3 = MySprite("objects/twig.png", 30, 20, screen_width, tile_size)
+    #sprite1 = MySprite("objects/bottle.png", 30, 30, screen_width, tile_size)
+    #sprite2 = MySprite("objects/cig.png", 30, 20, screen_width, tile_size)
+    #sprite3 = MySprite("objects/twig.png", 30, 20, screen_width, tile_size)
+
+    sprite1 = Trash(random.uniform(tile_size, (len(tiles[0]) - 2)*tile_size),
+                    random.uniform(tile_size, (len(tiles) - 2)*tile_size), screen_width, tile_size, tiles)
+    sprite2 = Trash(random.uniform(tile_size, (len(tiles[0]) - 2)*tile_size),
+                    random.uniform(tile_size, (len(tiles) - 2)*tile_size), screen_width, tile_size, tiles)
+    sprite3 = Trash(random.uniform(tile_size, (len(tiles[0]) - 2)*tile_size),
+                    random.uniform(tile_size, (len(tiles) - 2)*tile_size), screen_width, tile_size, tiles)
 
     all_sprites = pygame.sprite.Group()
     all_sprites.add(sprite1, sprite2, sprite3)
@@ -63,7 +74,7 @@ async def main():
                 elif tile_type == 1:
                     screen.blit(water_tile, (x * tile_size, y * tile_size))
 
-        all_sprites.update(tiles)
+        all_sprites.update()
         all_sprites.draw(screen)
 
 
