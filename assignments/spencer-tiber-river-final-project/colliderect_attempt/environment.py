@@ -5,6 +5,9 @@ import math
 import game_logic
 import enemy
 import main
+from itertools import cycle
+import sys
+import subprocess
 
 #TODO
 #make place for bad guy to stand
@@ -40,12 +43,12 @@ class Character():
     def player_collide(self, column, top):
             dummy_rect = pygame.Rect(game_logic.dummy_x,game_logic.dummy_y,30,40)
             for tile in column:
-                for i in top:
+                if tile in top:
                     if dummy_rect.colliderect(tile):
                         self.collision = True
-                        if game_logic.dummy_y + 37.1 < i.y:
+                        if game_logic.dummy_y + 37.1 < tile.y:
                             game_logic.delta_y = 0
-                            game_logic.player_pos[1] = i.y - 40.01
+                            game_logic.player_pos[1] = tile.y - 40.01
                             game_logic.jumping = False
                             game_logic.jump_counter = game_logic.jump_height
                             game_logic.falling = False
@@ -53,6 +56,8 @@ class Character():
                             game_logic.delta_x = 0
                             if game_logic.jump_counter <= 0:
                                 game_logic.falling = True
+                elif dummy_rect.colliderect(tile):
+                    game_logic.delta_x = 0
 
 #handling the players jumping so the delta_y can be modified after collision is detected
     def player_jump(self):
@@ -67,19 +72,24 @@ class Character():
                 game_logic.jump_counter -=5
                 
     #shooting mechanics for the player that point at the mouse and initiate when the mouse is clicked                   
-    def shoot(self, bullet_group, bullet_width, bullet_height):
+    def shoot(self, bullet_group, bullet_width, bullet_height,surface):
         mouse_pos = pygame.mouse.get_pos()
-        direction = pygame.math.Vector2(mouse_pos[0] - game_logic.player_pos[0], mouse_pos[1] - game_logic.player_pos[1])
+        direction = pygame.math.Vector2(mouse_pos[0] - self.rect.centerx, mouse_pos[1] - self.rect.centery)
+        print(direction)
         if direction.length() != 0:
             direction.normalize_ip()
 
         # Calculate the starting position of the bullet based on the player's current position
-        bullet_start_x = game_logic.player_pos[0] + (self.rect.width // 2) - (bullet_width // 2)
-        bullet_start_y = game_logic.player_pos[1] + (self.rect.height // 2) - (bullet_height // 2)
+        bullet_start_x = self.rect.centerx - (bullet_width // 2)
+        bullet_start_y = self.rect.centery - (bullet_height // 2)
 
-        bullet = enemy.Bullet(bullet_start_x, bullet_start_y, bullet_width, bullet_height, [direction.x * 3, direction.y * 3])
+        bullet = enemy.Bullet(bullet_start_x, bullet_start_y, bullet_width, bullet_height, [direction.x * 3, direction.y * 3],pygame.image.load('img/knife.png') )
         bullet_group.add(bullet)
+        print(mouse_pos)
+        print(self.rect.center)
+        pygame.draw.line(surface, (255, 255, 255), (game_logic.player_pos[0], game_logic.player_pos[1]), mouse_pos, 2)
 
+        
     def draw(self, screen):
         for bullet in self.bullets:
             bullet.draw(screen)
@@ -95,14 +105,17 @@ class Character():
             bullet_group.remove(bullet)
 
     #logic to kill enemies if bullets hit them
-    def kill_enemy(self, bullet_group, enemy_group):
+    def kill_enemy(self, bullet_group, enemy_group,shooting_sprite):
         for bullet in bullet_group.sprites():
             for badguy in enemy_group.sprites():
                 if bullet.rect.colliderect(badguy):
+                    if badguy in shooting_sprite:
+                            badguy.disable_shooting()
+                    badguy.not_alive()
                     badguy.kill()
                     bullet.kill()
-                    game_logic.can_shoot = False
-                 
+                
+                    
                     
 
     # Update the sprite's position
@@ -155,10 +168,7 @@ class Character():
             game_logic.player_pos[0] = 0
 
     
-        #update rectangle position
-        self.char_rect = character_image.get_rect()
-        self.char_rect.x = game_logic.player_pos[0]
-        self.char_rect.y = game_logic.player_pos[1]
+        
 
        
         game_logic.dummy_x = game_logic.dummy_x + game_logic.delta_x
@@ -171,7 +181,10 @@ class Character():
         game_logic.player_pos[0] = game_logic.player_pos[0] + game_logic.delta_x
         game_logic.player_pos[1] = game_logic.player_pos[1] + game_logic.delta_y
     
-        
+        #update rectangle position
+        self.rect = character_image.get_rect()
+        self.rect.x = game_logic.player_pos[0]
+        self.rect.y = game_logic.player_pos[1]
 
 
         
@@ -183,12 +196,25 @@ class WorldMap():
         # Load images
         dirt_img = pygame.image.load('img/dirt.png')
         grass_img = pygame.image.load('img/grassblock.jpg')
-        colbase_img = pygame.image.load('img/column_base.png')
-        colbod_img = pygame.image.load('img/column_body.png')
-        coltop_img = pygame.image.load('img/column_top.png')
-        waves_img = pygame.image.load('img/water_00.gif')
+        colbase_img = pygame.image.load('img/col_base.png')
+        colbod_img = pygame.image.load('img/col_body.png')
+        coltop_img = pygame.image.load('img/col_top.png')
+        wave_1 = pygame.image.load('img/wave1.png')
+        wave_2 = pygame.image.load('img/wave2.png')
+        wave_3 = pygame.image.load('img/wave3.png')
         water_img = pygame.image.load('img/water.png')
 
+
+
+        water_images = [
+            pygame.transform.scale(pygame.image.load('img/wave1.png'), (tile_size, tile_size)),
+            pygame.transform.scale(pygame.image.load('img/wave2.png'), (tile_size, tile_size)),
+            pygame.transform.scale(pygame.image.load('img/wave3.png'), (tile_size, tile_size)),
+        ]
+
+        self.waves_iter = iter(cycle(water_images))
+
+        
         # Initialize empty tile list
         self.tile_list = []
 
@@ -196,6 +222,7 @@ class WorldMap():
         self.col_collide = []
         self.col_top = []
         self.bullet_col = []
+    
 
         # Loop over each map element and 
         # assing it the correct image
@@ -247,7 +274,7 @@ class WorldMap():
                     self.col_top.append(img_rect)
                     self.bullet_col.append(tile)
                 if tile == 6:
-                    img = pygame.transform.scale(waves_img, (tile_size, tile_size))
+                    img = pygame.transform.scale(wave_1, (tile_size, tile_size))
                     img_rect = img.get_rect()
                     img_rect.x = col_count * tile_size
                     img_rect.y = row_count * tile_size
@@ -260,6 +287,7 @@ class WorldMap():
                     img_rect.y = row_count * tile_size
                     tile = [img, img_rect]
                     self.tile_list.append(tile)
+    
                 col_count += 1
             row_count += 1
 
@@ -268,9 +296,68 @@ class WorldMap():
 
     def draw(self,screen):
         for tiles in self.tile_list:
-            screen.blit(tiles[0],tiles[1])
+            #if tile == 6:
+                # Use the next image from the cyclic iterator
+             #   tiles[0] = next(self.waves_iter)
+            screen.blit(tiles[0], tiles[1])
+
+
+#creating a starting screen with a button
+class StartScreen:
+    def __init__(self):
+        self.font = pygame.font.Font(None, 55)
+        self.title_font = pygame.font.Font(None, 72)
+        self.title_text = self.title_font.render("Cesar's Scramble!", True, (255, 0, 0))
+        self.start_button_rect = pygame.Rect(game_logic.window_size[0]/2-100, game_logic.window_size[1]/2-25, 200, 50)
+        self.start_button_text = self.font.render("Start Game", True, (255, 255, 255))
+        self.start_background = pygame.image.load('img/background.jpeg')
+        self.start_background = pygame.transform.scale(self.start_background,(game_logic.window_size[0],game_logic.window_size[1]))
+    def draw(self, screen):
+        screen.blit(self.start_background, (0,0))
+        screen.blit(self.title_text, (275, 100))
+        pygame.draw.rect(screen, (0, 128, 255), self.start_button_rect)
+        screen.blit(self.start_button_text, self.start_button_rect.topleft)
+
+    def handle_events(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            x, y = event.pos
+            if self.start_button_rect.collidepoint(x, y):
+                return True
+        return False
     
 
 
-                   
-   
+class GameOver():
+    def __init__(self,screen_width,screen_height):
+        self.screen_width = screen_width
+        self.screen_height = screen_height
+        self.screen = pygame.display.set_mode((screen_width, screen_height))
+        self.font = pygame.font.Font(None, 36)
+        self.game_over_text = self.font.render("Game Over", True, (255, 255, 255))
+        self.restart_text = self.font.render("Press R to restart", True, (255, 255, 255))
+        self.quit_text = self.font.render("Press Q to quit", True, (255, 255, 255))
+        self.clock = pygame.time.Clock()
+
+    def show_game_over_screen(self):
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_r:
+                        print('r')
+                        subprocess.run(["python3", "main.py"])
+                        pygame.quit()
+                        sys.exit()
+                    elif event.key == pygame.K_q:
+                        pygame.quit()
+                        sys.exit()
+
+            self.screen.fill((0, 0, 0))
+            self.screen.blit(self.game_over_text, (self.screen_width // 2 - self.game_over_text.get_width() // 2, 100))
+            self.screen.blit(self.restart_text, (self.screen_width // 2 - self.restart_text.get_width() // 2, 200))
+            self.screen.blit(self.quit_text, (self.screen_width // 2 - self.quit_text.get_width() // 2, 250))
+
+            pygame.display.flip()
+            self.clock.tick(60)
