@@ -1,7 +1,7 @@
 import pygame
 import sys
 import asyncio 
-from objects import Boat, GameManager, MySprite, Trash
+from objects import Boat, GameManager, Trash, Rock
 import time
 import random
 
@@ -29,9 +29,12 @@ async def main():
     water_tile = pygame.image.load("objects/waterimg.jpeg")
     rock_tile = pygame.image.load("objects/rock_tile.png")
 
-    #sprite1 = MySprite("objects/bottle.png", 30, 30, screen_width, tile_size)
-    #sprite2 = MySprite("objects/cig.png", 30, 20, screen_width, tile_size)
-    #sprite3 = MySprite("objects/twig.png", 30, 20, screen_width, tile_size)
+    
+    trash_group = pygame.sprite.Group()
+    rock_group = pygame.sprite.Group()
+
+    trash_counters = 0
+    trash_threshold = 200
 
     sprite1 = Trash(random.uniform(tile_size, (len(tiles[0]) - 2)*tile_size),
                     random.uniform(tile_size, (len(tiles) - 2)*tile_size), screen_width, tile_size, tiles)
@@ -39,10 +42,19 @@ async def main():
                     random.uniform(tile_size, (len(tiles) - 2)*tile_size), screen_width, tile_size, tiles)
     sprite3 = Trash(random.uniform(tile_size, (len(tiles[0]) - 2)*tile_size),
                     random.uniform(tile_size, (len(tiles) - 2)*tile_size), screen_width, tile_size, tiles)
+    sprite4 = Trash(random.uniform(tile_size, (len(tiles[0]) - 2)*tile_size),
+                    random.uniform(tile_size, (len(tiles) - 2)*tile_size), screen_width, tile_size, tiles)
+    sprite5 = Trash(random.uniform(tile_size, (len(tiles[0]) - 2)*tile_size),
+                    random.uniform(tile_size, (len(tiles) - 2)*tile_size), screen_width, tile_size, tiles)
 
-    all_sprites = pygame.sprite.Group()
-    all_sprites.add(sprite1, sprite2, sprite3)
+    
+    trash_group.add(sprite1, sprite2, sprite3, sprite4, sprite5)
 
+    rock1 = Rock(random.uniform(tile_size, (len(tiles[0]) - 2)*tile_size),
+                    random.uniform(tile_size, (len(tiles) - 2)*tile_size), screen_width, tile_size, tiles)
+    rock2 = Rock(random.uniform(tile_size, (len(tiles[0]) - 2)*tile_size),
+                    random.uniform(tile_size, (len(tiles) - 2)*tile_size), screen_width, tile_size, tiles)
+    rock_group.add(rock1, rock2)
 
 
     boat_pos = [0,200]
@@ -63,7 +75,7 @@ async def main():
                 break
 
         keys = pygame.key.get_pressed()
-        boat.move(keys, tiles)
+        boat.move(keys, tiles, rock_group)
 
         screen.fill((0, 0, 255))
 
@@ -74,14 +86,41 @@ async def main():
                 elif tile_type == 1:
                     screen.blit(water_tile, (x * tile_size, y * tile_size))
 
-        all_sprites.update()
-        all_sprites.draw(screen)
+        trash_group.update()
+        trash_group.draw(screen)
+        
+        rock_group.update()
+        rock_group.draw(screen)
 
+        trash_collisions = pygame.sprite.spritecollide(boat, trash_group, False)
+
+        for trash in trash_collisions:
+            trash.trash_counter += 1
+            trash.generate_trash()
+            boat.handle_collision()
+
+        rock_collisions = pygame.sprite.spritecollide(boat, rock_group, False)
+        
+        for rock in rock_collisions:
+            boat.handle_collision_rock()
+            
+
+        font = pygame.font.Font(pygame.font.get_default_font(), 36)
+
+        points_text = font.render(f'Points:{boat.points}', True, (255,255,255))
+        screen.blit(points_text, (10,10))
+
+        for trash in trash_group:
+            trash_counters += trash.trash_counter
+            if trash_counters > trash_threshold:
+                boat.game_over = True
+            
+        
 
         if boat.game_over:
             boat.display_game_over_screen()
             pygame.display.flip()
-            pygame.time.delay(5000)
+            pygame.time.delay(3000)
             running = False
             time.sleep(2)
             pygame.quit()
