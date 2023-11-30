@@ -75,7 +75,6 @@ class Character():
     def shoot(self, bullet_group, bullet_width, bullet_height,surface):
         mouse_pos = pygame.mouse.get_pos()
         direction = pygame.math.Vector2(mouse_pos[0] - self.rect.centerx, mouse_pos[1] - self.rect.centery)
-        print(direction)
         if direction.length() != 0:
             direction.normalize_ip()
 
@@ -83,11 +82,8 @@ class Character():
         bullet_start_x = self.rect.centerx - (bullet_width // 2)
         bullet_start_y = self.rect.centery - (bullet_height // 2)
 
-        bullet = enemy.Bullet(bullet_start_x, bullet_start_y, bullet_width, bullet_height, [direction.x * 3, direction.y * 3],pygame.image.load('img/knife.png') )
+        bullet = enemy.Bullet(bullet_start_x, bullet_start_y, bullet_width, bullet_height, direction,pygame.image.load('img/knife.png') )
         bullet_group.add(bullet)
-        print(mouse_pos)
-        print(self.rect.center)
-        pygame.draw.line(surface, (255, 255, 255), (game_logic.player_pos[0], game_logic.player_pos[1]), mouse_pos, 2)
 
         
     def draw(self, screen):
@@ -144,7 +140,7 @@ class Character():
 
 
         if self.collision == False:
-            if game_logic.player_pos[1] < 465:
+            if game_logic.player_pos[1] < 565:
                 game_logic.delta_y += game_logic.gravity
             
             else:
@@ -157,12 +153,12 @@ class Character():
 
         
         #Stopping the player from falling through the floor.
-        if game_logic.player_pos[1] >= 465:
-            game_logic.player_pos[1] = 465
+        if game_logic.player_pos[1] >= 565:
+            game_logic.player_pos[1] = 565
         
         #placing wall boundaries 
-        if game_logic.player_pos[0] >= 970:
-            game_logic.player_pos[0] = 970
+        if game_logic.player_pos[0] >= 1370:
+            game_logic.player_pos[0] = 1370
         
         if game_logic.player_pos[0] <= 0:
             game_logic.player_pos[0] = 0
@@ -198,7 +194,9 @@ class WorldMap():
         grass_img = pygame.image.load('img/grassblock.jpg')
         colbase_img = pygame.image.load('img/col_base.png')
         colbod_img = pygame.image.load('img/col_body.png')
-        coltop_img = pygame.image.load('img/col_top.png')
+        coltoprt_img = pygame.image.load('img/col_top_right.png')
+        coltoplt_img = pygame.image.load('img/col_top_left.png')
+        coltopmid_img = pygame.image.load('img/col_mid_top.png')
         wave_1 = pygame.image.load('img/wave1.png')
         wave_2 = pygame.image.load('img/wave2.png')
         wave_3 = pygame.image.load('img/wave3.png')
@@ -257,14 +255,16 @@ class WorldMap():
                 if tile == 4:
                     img = pygame.transform.scale(colbod_img, (tile_size, tile_size))
                     img_rect = img.get_rect()
-                    img_rect.x = col_count * tile_size
+                    tile_rect = img_rect
+                    img_1 = pygame.transform.scale(colbod_img, (tile_size-15, tile_size))
+                    img_rect.x = (col_count * tile_size) + 7
                     img_rect.y = row_count * tile_size
-                    tile = [img, img_rect]
+                    tile = [img_1, img_rect]
                     self.tile_list.append(tile)
-                    self.col_collide.append(img_rect)
-                    self.bullet_col.append(tile)
+                    self.col_collide.append(tile_rect)
+                    self.bullet_col.append(tile_rect)
                 if tile == 5:
-                    img = pygame.transform.scale(coltop_img, (tile_size, tile_size))
+                    img = pygame.transform.scale(coltoprt_img, (tile_size, tile_size))
                     img_rect = img.get_rect()
                     img_rect.x = col_count * tile_size
                     img_rect.y = row_count * tile_size
@@ -274,19 +274,40 @@ class WorldMap():
                     self.col_top.append(img_rect)
                     self.bullet_col.append(tile)
                 if tile == 6:
+                    img = pygame.transform.scale(coltoplt_img, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = [img, img_rect]
+                    self.tile_list.append(tile)
+                    self.col_collide.append(img_rect)
+                    self.col_top.append(img_rect)
+                    self.bullet_col.append(tile)
+                if tile == 7:
+                    img = pygame.transform.scale(coltopmid_img, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = [img, img_rect]
+                    self.tile_list.append(tile)
+                    self.col_collide.append(img_rect)
+                    self.col_top.append(img_rect)
+                    self.bullet_col.append(tile)
+                if tile == 8:
                     img = pygame.transform.scale(wave_1, (tile_size, tile_size))
                     img_rect = img.get_rect()
                     img_rect.x = col_count * tile_size
                     img_rect.y = row_count * tile_size
                     tile = [img, img_rect]
                     self.tile_list.append(tile)
-                if tile == 7:
+                if tile == 9:
                     img = pygame.transform.scale(water_img, (tile_size, tile_size))
                     img_rect = img.get_rect()
                     img_rect.x = col_count * tile_size
                     img_rect.y = row_count * tile_size
                     tile = [img, img_rect]
                     self.tile_list.append(tile)
+                
     
                 col_count += 1
             row_count += 1
@@ -346,7 +367,6 @@ class GameOver():
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_r:
-                        print('r')
                         subprocess.run(["python3", "main.py"])
                         pygame.quit()
                         sys.exit()

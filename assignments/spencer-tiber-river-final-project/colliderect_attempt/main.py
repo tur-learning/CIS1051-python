@@ -16,7 +16,7 @@ def main():
     
     screen = pygame.display.set_mode(game_logic.window_size)
     bg_img = pygame.image.load('img/sky.png')
-    bg_img = pygame.transform.scale(bg_img, (1000,900))
+    bg_img = pygame.transform.scale(bg_img, (1400,900))
 
     #making the character a little julius cesar
     character_image = pygame.image.load('img/julius cesar.png')  # Replace 'character.png' with the file path of your character's image
@@ -30,7 +30,7 @@ def main():
     enemy_width = 40
     enemy_height = 50
     enemy_image = pygame.transform.scale(enemy_image, (enemy_width,enemy_height))
-    bullet_dimension = 15
+    bullet_dimension = 20
 
 
     tile_size = 50
@@ -44,9 +44,9 @@ def main():
     all_sprites = pygame.sprite.Group()
     walking_sprites = pygame.sprite.Group()
     shooting_sprites = pygame.sprite.Group()
-    bad_guy1 = enemy.BadGuy(game_logic.enemy1_pos[0], game_logic.enemy1_pos[1], enemy_width,enemy_height, enemy_image)
-    bad_guy2 = enemy.BadGuy(500,450,enemy_width,enemy_height,enemy_image)
-    bad_guy3 = enemy.BadGuy(150,350,enemy_width,enemy_height,enemy_image)
+    bad_guy1 = enemy.BadGuy(100, 400, enemy_width,enemy_height, enemy_image)
+    bad_guy2 = enemy.BadGuy(200,550,enemy_width,enemy_height,enemy_image)
+    bad_guy3 = enemy.BadGuy(400,300,enemy_width,enemy_height,enemy_image)
     all_sprites.add(bad_guy1, bad_guy2, bad_guy3)
     walking_sprites.add(bad_guy2)
     shooting_sprites.add(bad_guy1, bad_guy3)
