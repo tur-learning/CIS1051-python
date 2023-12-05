@@ -9,10 +9,6 @@ from itertools import cycle
 import sys
 import subprocess
 
-#TODO
-#make place for bad guy to stand
-#make some sort of roman picture background that is light enough to see character
-#I NEED TO FIX THE COLLISION WITH THE TOP OF THE COLUMN
     
     #making the character a little julius cesar
 character_image = pygame.image.load('img/julius cesar.png')  # Replace 'character.png' with the file path of your character's image
@@ -38,9 +34,9 @@ class Character():
         self.rect.x = initial_position[0]
         self.rect.y = initial_position[1]
         self.bullets = []
-        
+        self.last_shoot = 0
         #player collision logic for hitting the columns.
-    def player_collide(self, column, top):
+    def player_collide(self, column, top, bot,single):
             dummy_rect = pygame.Rect(game_logic.dummy_x,game_logic.dummy_y,30,40)
             for tile in column:
                 if tile in top:
@@ -49,13 +45,39 @@ class Character():
                         if game_logic.dummy_y + 37.1 < tile.y:
                             game_logic.delta_y = 0
                             game_logic.player_pos[1] = tile.y - 40.01
-                            game_logic.jumping = False
-                            game_logic.jump_counter = game_logic.jump_height
-                            game_logic.falling = False
+                            if tile.x <= self.dummy_rect.centerx <= tile.x+25:
+                                game_logic.jumping = False
+                                game_logic.jump_counter = game_logic.jump_height
+                                game_logic.falling = False
                         else:
                             game_logic.delta_x = 0
                             if game_logic.jump_counter <= 0:
                                 game_logic.falling = True
+                elif tile in bot:
+                    if dummy_rect.colliderect(tile):
+                        self.collision = True
+                        if game_logic.dummy_y > tile.y:#off set for bottom corner
+                            game_logic.jump_counter = 0
+                            game_logic.falling = True
+                            
+                        else:
+                            game_logic.delta_x = 0
+                elif tile in single:
+                    if dummy_rect.colliderect(tile):
+                        self.collision = True
+                        if game_logic.dummy_y > tile.y:
+                            game_logic.jump_counter = 0
+                            game_logic.falling = True
+                        elif game_logic.dummy_y + 37.1 < tile.y:
+                            game_logic.delta_y = 0
+                            game_logic.player_pos[1] = tile.y - 40.01
+                            if tile.x <= self.dummy_rect.centerx <= tile.x+25:
+                                game_logic.jumping = False
+                                game_logic.jump_counter = game_logic.jump_height
+                                game_logic.falling = False
+                        else:
+                            game_logic.delta_x = 0
+
                 elif dummy_rect.colliderect(tile):
                     game_logic.delta_x = 0
 
@@ -72,19 +94,20 @@ class Character():
                 game_logic.jump_counter -=5
                 
     #shooting mechanics for the player that point at the mouse and initiate when the mouse is clicked                   
-    def shoot(self, bullet_group, bullet_width, bullet_height,surface):
-        mouse_pos = pygame.mouse.get_pos()
-        direction = pygame.math.Vector2(mouse_pos[0] - self.rect.centerx, mouse_pos[1] - self.rect.centery)
-        if direction.length() != 0:
-            direction.normalize_ip()
+    def shoot(self, bullet_group, bullet_width, bullet_height):
+        if time.time()-self.last_shoot >= 1.5:
+            mouse_pos = pygame.mouse.get_pos()
+            direction = pygame.math.Vector2(mouse_pos[0] - self.rect.centerx, mouse_pos[1] - self.rect.centery)
+            if direction.length() != 0:
+                direction.normalize_ip()
 
-        # Calculate the starting position of the bullet based on the player's current position
-        bullet_start_x = self.rect.centerx - (bullet_width // 2)
-        bullet_start_y = self.rect.centery - (bullet_height // 2)
+            # Calculate the starting position of the bullet based on the player's current position
+            bullet_start_x = self.rect.centerx - (bullet_width // 2)
+            bullet_start_y = self.rect.centery - (bullet_height // 2)
 
-        bullet = enemy.Bullet(bullet_start_x, bullet_start_y, bullet_width, bullet_height, direction,pygame.image.load('img/knife.png') )
-        bullet_group.add(bullet)
-
+            bullet = enemy.Bullet(bullet_start_x, bullet_start_y, bullet_width, bullet_height, direction,pygame.image.load('img/knife.png') )
+            bullet_group.add(bullet)
+            self.last_shoot = time.time()
         
     def draw(self, screen):
         for bullet in self.bullets:
@@ -115,7 +138,7 @@ class Character():
                     
 
     # Update the sprite's position
-    def update(self, column, top):
+    def update(self, column, top, bot,single):
         #detecting if the player is falling so that they cannot jump when falling. This was an issue when falling off the columns. The 1.9 value comes from the normal difference between values being 2
         if game_logic.player_pos[1] - game_logic.y_detect > 1.99:
             game_logic.falling = True
@@ -134,13 +157,13 @@ class Character():
         keys = pygame.key.get_pressed()
   
         if keys[pygame.K_a]:
-            game_logic.delta_x -= 3
+            game_logic.delta_x -= 2
         if keys[pygame.K_d]:
-            game_logic.delta_x += 3
+            game_logic.delta_x += 2
 
 
         if self.collision == False:
-            if game_logic.player_pos[1] < 565:
+            if game_logic.player_pos[1] < 615:
                 game_logic.delta_y += game_logic.gravity
             
             else:
@@ -153,8 +176,8 @@ class Character():
 
         
         #Stopping the player from falling through the floor.
-        if game_logic.player_pos[1] >= 565:
-            game_logic.player_pos[1] = 565
+        if game_logic.player_pos[1] >= 615:
+            game_logic.player_pos[1] = 615
         
         #placing wall boundaries 
         if game_logic.player_pos[0] >= 1370:
@@ -170,13 +193,13 @@ class Character():
         game_logic.dummy_x = game_logic.dummy_x + game_logic.delta_x
         game_logic.dummy_y = game_logic.dummy_y + game_logic.delta_y
 
-        self.player_collide(column, top) 
+        self.player_collide(column, top, bot,single) 
 
         self.player_jump()
 
         game_logic.player_pos[0] = game_logic.player_pos[0] + game_logic.delta_x
         game_logic.player_pos[1] = game_logic.player_pos[1] + game_logic.delta_y
-    
+        self.dummy_rect = pygame.Rect(game_logic.dummy_x,game_logic.dummy_y,30,40)
         #update rectangle position
         self.rect = character_image.get_rect()
         self.rect.x = game_logic.player_pos[0]
@@ -201,6 +224,7 @@ class WorldMap():
         wave_2 = pygame.image.load('img/wave2.png')
         wave_3 = pygame.image.load('img/wave3.png')
         water_img = pygame.image.load('img/water.png')
+        door_img = pygame.image.load('img/door.png')
 
 
 
@@ -220,7 +244,9 @@ class WorldMap():
         self.col_collide = []
         self.col_top = []
         self.bullet_col = []
-    
+        self.col_bot = []
+        self.col_single = []
+        self.door = []
 
         # Loop over each map element and 
         # assing it the correct image
@@ -252,17 +278,20 @@ class WorldMap():
                     self.tile_list.append(tile)
                     self.col_collide.append(img_rect)
                     self.bullet_col.append(tile)
+                    self.col_bot.append(img_rect)
                 if tile == 4:
                     img = pygame.transform.scale(colbod_img, (tile_size, tile_size))
                     img_rect = img.get_rect()
-                    tile_rect = img_rect
-                    img_1 = pygame.transform.scale(colbod_img, (tile_size-15, tile_size))
-                    img_rect.x = (col_count * tile_size) + 7
+                    img_rect.x = col_count * tile_size
                     img_rect.y = row_count * tile_size
-                    tile = [img_1, img_rect]
+                    self.col_collide.append(img_rect)
+                    img1 = pygame.transform.scale(colbod_img, (tile_size-7, tile_size)) #used to offset the image but maintain the rect collision
+                    img1_rect = img1.get_rect()
+                    img1_rect.x = col_count * tile_size + 3.5
+                    img1_rect.y = row_count * tile_size
+                    tile = [img1, img1_rect]
                     self.tile_list.append(tile)
-                    self.col_collide.append(tile_rect)
-                    self.bullet_col.append(tile_rect)
+                    self.bullet_col.append(tile)
                 if tile == 5:
                     img = pygame.transform.scale(coltoprt_img, (tile_size, tile_size))
                     img_rect = img.get_rect()
@@ -307,7 +336,24 @@ class WorldMap():
                     img_rect.y = row_count * tile_size
                     tile = [img, img_rect]
                     self.tile_list.append(tile)
-                
+                if tile == 10:
+                    img = pygame.transform.scale(coltopmid_img, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = [img, img_rect]
+                    self.tile_list.append(tile)
+                    self.col_collide.append(img_rect)
+                    self.col_single.append(img_rect)
+                    self.bullet_col.append(tile)
+                if tile == 11:
+                    img = pygame.transform.scale(door_img, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = [img, img_rect]
+                    self.tile_list.append(tile)
+                    self.door.append(tile)
     
                 col_count += 1
             row_count += 1
@@ -335,7 +381,7 @@ class StartScreen:
         self.start_background = pygame.transform.scale(self.start_background,(game_logic.window_size[0],game_logic.window_size[1]))
     def draw(self, screen):
         screen.blit(self.start_background, (0,0))
-        screen.blit(self.title_text, (275, 100))
+        screen.blit(self.title_text, (500, 100))
         pygame.draw.rect(screen, (0, 128, 255), self.start_button_rect)
         screen.blit(self.start_button_text, self.start_button_rect.topleft)
 
@@ -381,3 +427,31 @@ class GameOver():
 
             pygame.display.flip()
             self.clock.tick(60)
+
+
+class Level:
+    def __init__(self, map, walkers,shooters,tile_size):
+        self.world_map = WorldMap(map, tile_size)
+        self.walkers = walkers
+        self.shooters = shooters
+        self.all_sprites = pygame.sprite.Group()
+        self.all_sprites.add(walkers.sprites())
+        self.all_sprites.add(shooters.sprites())
+
+class Game:
+    def __init__(self,levels):
+        self.levels = levels
+        self.current_level = 0
+        self.level_shown = self.levels[self.current_level]
+    
+    def update(self,player,door):
+        if player.rect.colliderect(door):
+            self.current_level = self.current_level + 1
+
+    def load_level(self,screen,shooters,walkers):
+        self.level_shown.world_map.draw(screen)
+        self.level_shown.all_sprites.draw(screen)
+        shooters.add(self.level_shown.shooters)
+        walkers.add(self.level_shown.walkers)
+
+

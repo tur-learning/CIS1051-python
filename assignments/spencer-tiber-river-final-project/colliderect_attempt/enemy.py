@@ -39,14 +39,13 @@ class BadGuy(pygame.sprite.Sprite):
 		
 
 	
-	def update(self, walker,col):
-		for man in walker.sprites():
-			man.rect.x += self.direction * self.speed
-			for column in col:
-				if man.rect.colliderect(column):
-					self.direction = self.direction * -1
-                    # Flip the image horizontally
-					self.bad_guy_sprite.image = pygame.transform.flip(self.bad_guy_sprite.image, True, False)
+	def update(self,col):
+		self.rect.x += self.direction * self.speed
+		for column in col:
+			if self.rect.colliderect(column):
+				self.direction = self.direction * -1
+				# Flip the image horizontally
+				self.bad_guy_sprite.image = pygame.transform.flip(self.bad_guy_sprite.image, True, False)
 
 		
 
