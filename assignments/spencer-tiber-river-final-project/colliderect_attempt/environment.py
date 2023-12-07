@@ -14,8 +14,8 @@ import subprocess
 character_image = pygame.image.load('img/julius cesar.png')  # Replace 'character.png' with the file path of your character's image
 
     #establishing character dimensions and scaling the image accordingly
-character_width = 30  
-character_height = 40  
+character_width = 25  
+character_height = 40 
 character_image = pygame.transform.scale(character_image, (character_width, character_height))
 char_rect = character_image.get_rect()
 
@@ -37,7 +37,7 @@ class Character():
         self.last_shoot = 0
         #player collision logic for hitting the columns.
     def player_collide(self, column, top, bot,single):
-            dummy_rect = pygame.Rect(game_logic.dummy_x,game_logic.dummy_y,30,40)
+            dummy_rect = pygame.Rect(game_logic.dummy_x,game_logic.dummy_y,20,40)
             for tile in column:
                 if tile in top:
                     if dummy_rect.colliderect(tile):
@@ -353,7 +353,7 @@ class WorldMap():
                     img_rect.y = row_count * tile_size
                     tile = [img, img_rect]
                     self.tile_list.append(tile)
-                    self.door.append(tile)
+                    self.door.append(img_rect)
     
                 col_count += 1
             row_count += 1
@@ -430,8 +430,8 @@ class GameOver():
 
 
 class Level:
-    def __init__(self, map, walkers,shooters,tile_size):
-        self.world_map = WorldMap(map, tile_size)
+    def __init__(self, map, walkers,shooters):
+        self.world_map = map
         self.walkers = walkers
         self.shooters = shooters
         self.all_sprites = pygame.sprite.Group()
@@ -439,19 +439,78 @@ class Level:
         self.all_sprites.add(shooters.sprites())
 
 class Game:
-    def __init__(self,levels):
+    def __init__(self,levels,tile_size):
         self.levels = levels
         self.current_level = 0
         self.level_shown = self.levels[self.current_level]
-    
-    def update(self,player,door):
-        if player.rect.colliderect(door):
-            self.current_level = self.current_level + 1
+        self.current_map = WorldMap(self.level_shown.world_map,tile_size)
+        self.has_switched_level = False
 
-    def load_level(self,screen,shooters,walkers):
-        self.level_shown.world_map.draw(screen)
+    def load_level(self,screen,shooters,walkers,all):
         self.level_shown.all_sprites.draw(screen)
         shooters.add(self.level_shown.shooters)
         walkers.add(self.level_shown.walkers)
+        all.add(self.level_shown.all_sprites)
+        
+    def update(self,player,door,shooters,walkers,all,screen, tile_size,youwin):
+        door_collision_flag = False
+        
+        # Check for door collision
+        for open in door:
+            if open.colliderect(player):
+                door_collision_flag = True
+                break
 
+        # Switch level if door collision detected and flag is not already set
+        if door_collision_flag and not self.has_switched_level:
+            if self.current_level+1 == len(self.levels):
+                youwin.show_you_win_screen()
+            else: 
+                self.current_level = self.current_level + 1
+            
+            # Kill all sprites in the groups
+            for shooter in shooters:
+                shooter.kill()
 
+            for walker in walkers:
+                walker.kill()
+
+            for sprite in all:
+                sprite.kill()
+            # Update self.level_shown to point to the new level object
+            self.level_shown = self.levels[self.current_level]
+            self.current_map = WorldMap(self.level_shown.world_map,tile_size)
+            # Set flag to prevent multiple level switches
+           
+            self.load_level(screen,shooters,walkers,all)
+
+            self.has_switched_level = True
+            
+
+class YouWin:
+    def __init__(self, screen_width, screen_height):
+        self.screen_width = screen_width
+        self.screen_height = screen_height
+        self.screen = pygame.display.set_mode((screen_width, screen_height))
+        self.font = pygame.font.Font(None, 36)
+        self.you_win_text = self.font.render("You Win!", True, (255, 255, 255))
+        self.quit_text = self.font.render("Press Q to quit", True, (255, 255, 255))
+        self.clock = pygame.time.Clock()
+
+    def show_you_win_screen(self):
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_q:
+                        pygame.quit()
+                        sys.exit()
+
+            self.screen.fill((0, 0, 0))
+            self.screen.blit(self.you_win_text, (self.screen_width // 2 - self.you_win_text.get_width() // 2, 100))
+            self.screen.blit(self.quit_text, (self.screen_width // 2 - self.quit_text.get_width() // 2, 200))
+
+            pygame.display.flip()
+            self.clock.tick(60)

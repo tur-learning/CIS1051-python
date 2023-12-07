@@ -52,11 +52,11 @@ class BadGuy(pygame.sprite.Sprite):
 	def shoot(self, player_pos, bullet_height, bullet_width):
 		if self.can_shoot:
 				#calculate direction
-			direction = Vector2((player_pos.centerx) - (self.rect.centerx), (player_pos.centery) - (self.rect.centery))
+			direction = Vector2((player_pos.centerx) - (self.rect.x), (player_pos.centery) - (self.rect.y))
 			if direction.length() != 0:  # Ensure the length is not zero to avoid division by zero
 				direction.normalize_ip()
 
-				bullet_pos = Vector2(self.rect.centerx, self.rect.centery)
+				bullet_pos = Vector2(self.rect.x, self.rect.y)
 
 				# Create a bullet instance and add it to the list of bullets, along with position and velocity
 				bullet = Bullet(bullet_pos.x, bullet_pos.y, bullet_width, bullet_height, direction, pygame.image.load('img/knife.png'))

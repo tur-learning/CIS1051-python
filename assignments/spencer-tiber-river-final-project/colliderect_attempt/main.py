@@ -38,57 +38,65 @@ def main():
     tile_size = 25
 
     #calling classes
-    worldmap = environment.WorldMap(game_logic.map_1,tile_size)
+    #worldmap = environment.WorldMap(game_logic.map_1,tile_size)
     main_character = environment.Character(character_image,game_logic.player_pos)
     
     #establishing bad_guys
    
     level_1_walkers = pygame.sprite.Group()
     level_1_shooters = pygame.sprite.Group()
-    bad_guy1 = enemy.BadGuy(100, 545, enemy_width,enemy_height, enemy_image)
-    bad_guy2 = enemy.BadGuy(375,625,enemy_width,enemy_height,enemy_image)
-    bad_guy3 = enemy.BadGuy(325,545,enemy_width,enemy_height,enemy_image)
-    bad_guy4 = enemy.BadGuy(675,295,enemy_width,enemy_height,enemy_image)
-    bad_guy5 = enemy.BadGuy(725,320,enemy_width,enemy_height,enemy_image)
-    bad_guy6 = enemy.BadGuy(800,320,enemy_width,enemy_height,enemy_image)
-    bad_guy7 = enemy.BadGuy(800,220,enemy_width,enemy_height,enemy_image)
-    bad_guy8 = enemy.BadGuy(1375,370,enemy_width,enemy_height,enemy_image)
-    bad_guy9 = enemy.BadGuy(1375,495,enemy_width,enemy_height,enemy_image)
-    bad_guy10 = enemy.BadGuy(1100,625,enemy_width,enemy_height,enemy_image)
+    l1bad_guy1 = enemy.BadGuy(100, 545, enemy_width,enemy_height, enemy_image)
+    l1bad_guy2 = enemy.BadGuy(375,625,enemy_width,enemy_height,enemy_image)
+    l1bad_guy3 = enemy.BadGuy(325,545,enemy_width,enemy_height,enemy_image)
+    l1bad_guy4 = enemy.BadGuy(675,295,enemy_width,enemy_height,enemy_image)
+    l1bad_guy5 = enemy.BadGuy(725,320,enemy_width,enemy_height,enemy_image)
+    l1bad_guy6 = enemy.BadGuy(800,320,enemy_width,enemy_height,enemy_image)
+    l1bad_guy7 = enemy.BadGuy(800,220,enemy_width,enemy_height,enemy_image)
+    l1bad_guy8 = enemy.BadGuy(1375,370,enemy_width,enemy_height,enemy_image)
+    l1bad_guy9 = enemy.BadGuy(1375,495,enemy_width,enemy_height,enemy_image)
+    l1bad_guy10 = enemy.BadGuy(1100,625,enemy_width,enemy_height,enemy_image)
 
-    level_1_walkers.add(bad_guy2,bad_guy5,bad_guy6,bad_guy7,bad_guy10)
-    level_1_shooters.add(bad_guy1, bad_guy3,bad_guy4,bad_guy8,bad_guy9)
+    level_1_walkers.add(l1bad_guy2,l1bad_guy5,l1bad_guy6,l1bad_guy7,l1bad_guy10)
+    level_1_shooters.add(l1bad_guy1, l1bad_guy3,l1bad_guy4,l1bad_guy8,l1bad_guy9)
 
+    level_2_walkers = pygame.sprite.Group()
+    level_2_shooters = pygame.sprite.Group()
+    l2bad_guy1 = enemy.BadGuy(1300, 395, enemy_width,enemy_height, enemy_image)
+    l2bad_guy2 = enemy.BadGuy(1200, 195, enemy_width,enemy_height, enemy_image)
+    l2bad_guy3 = enemy.BadGuy(600, 620, enemy_width,enemy_height, enemy_image)
+    l2bad_guy4 = enemy.BadGuy(200, 170, enemy_width,enemy_height, enemy_image)
+    l2bad_guy5 = enemy.BadGuy(625, 120, enemy_width,enemy_height, enemy_image)
+    l2bad_guy6 = enemy.BadGuy(450, 395, enemy_width,enemy_height, enemy_image)
+    l2bad_guy7 = enemy.BadGuy(625, 295, enemy_width,enemy_height, enemy_image)
+    l2bad_guy8 = enemy.BadGuy(450, 220, enemy_width,enemy_height, enemy_image)
+    l2bad_guy9 = enemy.BadGuy(625, 470, enemy_width,enemy_height, enemy_image)
+    l2bad_guy10 = enemy.BadGuy(150,70, enemy_width,enemy_height, enemy_image)
+
+
+
+    level_2_shooters.add(l2bad_guy1,l2bad_guy3,l2bad_guy5,l2bad_guy6,l2bad_guy7,l2bad_guy8,l2bad_guy9,l2bad_guy4,l2bad_guy10)
+    level_2_walkers.add(l2bad_guy2,l2bad_guy3,l2bad_guy4,l2bad_guy10)
     #calling level class to build levels 
-    level_1 = environment.Level(game_logic.map_1,level_1_walkers,level_1_shooters, tile_size)
+    level_1 = environment.Level(game_logic.map_1,level_1_walkers,level_1_shooters)
+    level_2 = environment.Level(game_logic.map_2,level_2_walkers,level_2_shooters)
 
     #creating list of levels to feed to game class
-    levels = [level_1]
+    levels = [level_1,level_2]
 
-    all_sprites = pygame.sprite.Group()
-    walking_sprites = pygame.sprite.Group()
-    shooting_sprites = pygame.sprite.Group()
-
-    all_sprites.add()
-    walking_sprites.add()
-    shooting_sprites.add()
 
 
     start_screen = environment.StartScreen()
     running = False
 
     gameover = environment.GameOver(game_logic.window_size[0],game_logic.window_size[1])
+    you_win = environment.YouWin(game_logic.window_size[0],game_logic.window_size[1])
 
    #main characters shot bullets
     bullet_group = pygame.sprite.Group()
    
    #game class calling
-    game = environment.Game(levels)
+    game = environment.Game(levels,tile_size)
 
-    #music stuff
-    mixer.init()
-    title_music = pygame.mixer.Sound('img/title_music.mp3')
-    pygame.mixer.music.set_volume(0.5)
     
     running = False
     playing_title_music = True 
@@ -106,27 +114,23 @@ def main():
 
         # Draw the start screen
         start_screen.draw(screen)
-
-        if playing_title_music:
-            title_music.play(loops=-1)
         
         # Update the display
         pygame.display.flip()
             
-        title_music.stop()
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
                 break
         
-
-        game.load_level(screen,shooting_sprites,walking_sprites)
-
-        main_character.update(worldmap.col_collide, worldmap.col_top, worldmap.col_bot, worldmap.col_single)
-    
         
-    
+        game.load_level(screen,game_logic.shooting_sprites,game_logic.walking_sprites,game_logic.all_sprites)
+        
+        main_character.update(game.current_map.col_collide, game.current_map.col_top, game.current_map.col_bot, game.current_map.col_single)
+        
+        
+
         
 
         #this is a background image
@@ -136,25 +140,26 @@ def main():
 
 
         #drawing the tile map
-        #worldmap.draw(screen)
-
+        game.current_map.draw(screen)
+    
+        game.update(main_character.rect,game.current_map.door,game_logic.shooting_sprites,game_logic.walking_sprites,game_logic.all_sprites,screen,tile_size,you_win)
             
         #drawing the player
         screen.blit(environment.character_image, game_logic.player_pos)  
 
         current_time = pygame.time.get_ticks() / 1000  # Convert milliseconds to seconds
-        for man in shooting_sprites:
+        for man in game_logic.shooting_sprites:
             man.timer(current_time, main_character.rect, bullet_dimension, bullet_dimension)
 
 
-        #all_sprites.draw(screen)
+        game_logic.all_sprites.draw(screen)
 
      
-        for man in shooting_sprites:
+        for man in game_logic.shooting_sprites:
             for bullet in man.bullets:
                 bullet.draw(screen)
         
-        for man in shooting_sprites:
+        for man in game_logic.shooting_sprites:
                 # Update bullets
             for bullet in man.bullets:
                 bullet.update()   
@@ -168,16 +173,16 @@ def main():
         # Update and draw bullets
         bullet_group.update()
         bullet_group.draw(screen)
-        for man in walking_sprites:
-            man.update(worldmap.col_collide)
-        for man in shooting_sprites:
-            man.bullet_detect_env(worldmap.bullet_col)
-        main_character.bullet_detect_env(bullet_group, worldmap.bullet_col)
-        main_character.kill_enemy(bullet_group, all_sprites, shooting_sprites)
+        for man in game_logic.walking_sprites:
+            man.update(game.current_map.col_collide)
+        for man in game_logic.shooting_sprites:
+            man.bullet_detect_env(game.current_map.bullet_col)
+        main_character.bullet_detect_env(bullet_group, game.current_map.bullet_col)
+        main_character.kill_enemy(bullet_group, game_logic.all_sprites, game_logic.shooting_sprites)
 
-        for man in shooting_sprites:
+        for man in game_logic.shooting_sprites:
             man.shoot_kill_character(main_character.rect, gameover)
-        for man in all_sprites:
+        for man in game_logic.all_sprites:
             man.walk_kill_character(main_character.rect, gameover)
         pygame.display.flip()
 
