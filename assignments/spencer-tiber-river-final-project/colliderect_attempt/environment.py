@@ -407,6 +407,8 @@ class GameOver():
 
     def show_game_over_screen(self):
         while True:
+            pygame.mixer.music.stop()
+            play_lose_sound_effect()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -442,6 +444,7 @@ class Game:
     def __init__(self,levels,tile_size):
         self.levels = levels
         self.current_level = 0
+    
         self.level_shown = self.levels[self.current_level]
         self.current_map = WorldMap(self.level_shown.world_map,tile_size)
         self.has_switched_level = False
@@ -484,7 +487,7 @@ class Game:
            
             self.load_level(screen,shooters,walkers,all)
 
-            self.has_switched_level = True
+            self.has_switched_level = False
             
 
 class YouWin:
@@ -514,3 +517,21 @@ class YouWin:
 
             pygame.display.flip()
             self.clock.tick(60)
+
+def init_music():
+    pygame.mixer.init()
+    game_music = pygame.mixer.music.load('img/title_music.mp3')
+    pygame.mixer.music.play(-1)  # Play music in a loop
+   
+
+def play_lose_sound_effect():
+    sound = pygame.mixer.Sound('img/womp-womp.mp3')
+    sound.set_volume(0.5)  # Adjust volume as desired
+    sound.play()
+
+
+class Star():
+    def __init__(self,x, y, width, height, image):
+        super().__init__()
+        self.star_sprite = enemy.Characters(x, y, width, height, image)
+        self.rect = self.star_sprite.rect

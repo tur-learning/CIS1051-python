@@ -99,7 +99,8 @@ def main():
 
     
     running = False
-    playing_title_music = True 
+    
+    environment.init_music()
 
     while not running:
 
@@ -124,6 +125,8 @@ def main():
                 running = False
                 break
         
+        
+        pygame.mixer.music.set_volume(0.5)
         
         game.load_level(screen,game_logic.shooting_sprites,game_logic.walking_sprites,game_logic.all_sprites)
         
