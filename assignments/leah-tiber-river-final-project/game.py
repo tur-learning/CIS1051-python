@@ -1,7 +1,7 @@
 import pygame
 import sys
 import asyncio 
-from objects import Boat, GameManager, Trash, Rock
+from objects import Boat, GameManager, Trash, Rock, Coin
 import time
 import random
 
@@ -32,9 +32,10 @@ async def main():
     
     trash_group = pygame.sprite.Group()
     rock_group = pygame.sprite.Group()
+    coin_group = pygame.sprite.Group()
 
     trash_counters = 0
-    trash_threshold = 200
+    trash_threshold = 30
 
     sprite1 = Trash(random.uniform(tile_size, (len(tiles[0]) - 2)*tile_size),
                     random.uniform(tile_size, (len(tiles) - 2)*tile_size), screen_width, tile_size, tiles)
@@ -54,12 +55,18 @@ async def main():
                     random.uniform(tile_size, (len(tiles) - 2)*tile_size), screen_width, tile_size, tiles)
     rock2 = Rock(random.uniform(tile_size, (len(tiles[0]) - 2)*tile_size),
                     random.uniform(tile_size, (len(tiles) - 2)*tile_size), screen_width, tile_size, tiles)
-    rock_group.add(rock1, rock2)
+    rock3 = Rock(random.uniform(tile_size, (len(tiles[0]) - 2)*tile_size),
+                    random.uniform(tile_size, (len(tiles) - 2)*tile_size), screen_width, tile_size, tiles)
+    rock_group.add(rock1, rock2, rock3)
+
+    coin1 = Coin(random.uniform(tile_size, (len(tiles[0]) - 2)*tile_size),
+                    random.uniform(tile_size, (len(tiles) - 2)*tile_size), screen_width, tile_size, tiles)
+    coin_group.add(coin1)
 
 
     boat_pos = [0,200]
     boat_width = 50
-    boat_height= 50
+    boat_height= 25
 
 
     game_manager = GameManager(screen, screen_width)
@@ -75,7 +82,8 @@ async def main():
                 break
 
         keys = pygame.key.get_pressed()
-        boat.move(keys, tiles, rock_group)
+        boat.move(keys, tiles, rock_group, coin_group)
+        trash_counters = 0
 
         screen.fill((0, 0, 255))
 
@@ -91,11 +99,14 @@ async def main():
         
         rock_group.update()
         rock_group.draw(screen)
+        
+        coin_group.update()
+        coin_group.draw(screen)
 
         trash_collisions = pygame.sprite.spritecollide(boat, trash_group, False)
 
         for trash in trash_collisions:
-            trash.trash_counter += 1
+            trash.update_counter()
             trash.generate_trash()
             boat.handle_collision()
 
@@ -114,11 +125,13 @@ async def main():
             trash_counters += trash.trash_counter
             if trash_counters > trash_threshold:
                 boat.game_over = True
+                
+        print(trash_counters)
             
         
 
         if boat.game_over:
-            boat.display_game_over_screen()
+            boat.display_game_over_screen(boat.points, trash_counters, trash_threshold)
             pygame.display.flip()
             pygame.time.delay(3000)
             running = False
