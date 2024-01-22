@@ -42,7 +42,7 @@ td, th {
   <tr>
     <td align="left"><a href="lectures/slides/01a_intro_python.slides.html">Intro Python</a></td>
     <td></td>
-    <td align="right"><a href="lectures/slides/03a_functions1.slides.html">Functions</a></td>
+    <td align="right"><a href="lectures/slides/03a_functions.slides.html">Functions</a></td>
   </tr>
   <tr>
     <td></td>
