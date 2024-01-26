@@ -1,0 +1,3 @@
+#!/bin/bash
+
+pygbag --gh_codespace "${CODESPACE_NAME}" main.py
