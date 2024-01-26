@@ -1,0 +1,10 @@
+#!/bin/bash
+
+LABS_DIR=$PWD
+cd /workspaces
+
+pip list -v | grep pygame || pip install pygame
+pip list -v | grep pygbag || { git clone https://github.com/andreagalle/pygbag.git && \
+                               cd pygbag && git checkout gh-codespaces-latest && \
+                               pip install -e $PWD ; }
+cd $LABS_DIR
