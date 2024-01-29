@@ -6,7 +6,7 @@ Once installed [Docker](https://www.docker.com/) on you personal computer (check
 
 After the [alnoda/python-workspace](https://hub.docker.com/r/alnoda/python-workspace) Docker image has been pulled open a terminal and run the following command
 
-    docker run --name tur23-python -d -p 8020-8040:8020-8040 alnoda/python-workspace
+    docker run --name tur24-python -d -p 8020-8040:8020-8040 alnoda/python-workspace
 
 this will run a Docker container, in detached mode, with the promised dev environment accessible from the browser.
 
@@ -14,12 +14,11 @@ Go to [localhost:8020](http://localhost:8020/)
 
 From there open the `Terminal` webapp (CLI) and clone the repo [tur-learning/CIS1051-python](https://github.com/tur-learning/CIS1051-python)
 
-    git clone https://github.com/tur-learning/CIS1051-python.git
+    git clone --branch tur24-spring --single-branch https://github.com/tur-learning/CIS1051-python.git
 
 Let's start installing all the necessary dependecies (pygame and pygbag)
 
     cd CIS1051-python/lab-sessions
-    git checkout lab-sessions
     source .env
     setup
     
