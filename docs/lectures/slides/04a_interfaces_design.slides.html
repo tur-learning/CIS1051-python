@@ -1,0 +1,975 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Intro to Problem solving and Programming in Python</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="reveal.js/dist/reset.css">
+		<link rel="stylesheet" href="reveal.js/dist/reveal.css">
+		<link rel="stylesheet" href="reveal.js/dist/theme/black.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="reveal.js/plugin/highlight/monokai.css">
+  </head>
+
+	<body>
+
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+      <section >
+        <section >
+          <h1>Intro to</h1>
+          <h3>Problem solving and</h3>
+          <!-- <h1>and</h1> -->
+          <h3>Programming in Python</h3>
+          <!-- <h4>CIS 1051 - Temple Rome</h4> -->
+          <!-- <p><img src="img/temple-logo-bw.png" alt="LOGO" /></p> -->
+          <p style="color: rgba(255, 255, 255, 0.15); font-size: 20px;">(use the <em>Space</em> key to navigate through all slides)</p>
+        </section>
+        <section>
+          <p>Prof. Andrea Gallegati</p>
+          <p>( <a href="tuj81353@temple.edu">tuj81353@temple.edu</a> )</p>
+          <!-- <p><img src="img/temple-logo-bw.png" alt="LOGO" /></p> -->
+        </section>
+        <section>
+          <h4>CIS 1051 - Temple Rome</h4>
+          <h2>Interfaces Design</h2>
+        </section>
+      </section >
+      <section>
+        <section>
+            <h1>The Turtle Module</h1>
+        </section>
+        <section>
+            <p>To check whether you have this <strong>module</strong>:</p>
+            <p>open the Python interpreter and type</p>
+            <div class=" highlight python">
+                <pre class="fragment" data-fragment-index="1">
+                  <code>
+>>> import turtle
+>>> bob = turtle.Turtle()
+                  </code>
+                </pre>
+              </div>
+              <p class="fragment" data-fragment-index="2">... and a new window should pop-up!</p>
+        </section>
+        <section>
+            <p>A small arrow represents the &quot;turtle&quot;.</p>
+        </section>
+        <section>
+            <p>Of course, this won't happen on a <strong>Dockerized environment</strong></p>
+            <p class="fragment" data-fragment-index="1">...cause there's no <code>$DISPLAY</code> at all :)</p>
+        </section>
+        <section>
+            <p>There, import an equivalent module:</p>
+            <pre>
+                <code>
+>>> from svg_turtle import SvgTurtle
+                </code>
+            </pre>
+            <p class="fragment" data-fragment-index="1">... that will do the job!</p>
+        </section>
+        <section>
+            <p>or keep following this class clicking here below!</p>
+            <p>
+                <a href="https://colab.research.google.com/github/tur-learning/CIS1051-python/blob/lectures/lectures/notebooks/04b_interfaces_design.ipynb?hl=en" target="_blank">
+                <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" width="750"/></a>
+            </p>
+        </section>
+        <section>
+            <p>this opens a new tab to redirect you towards an interactive version of this class</p>
+            <img src="img/colab-ipynb.png" alt="Open In Colab" width="500"/></a>
+            <p class="fragment" data-fragment-index="1">then click on the <strong>play button</strong> of each code block.</p>
+        </section>
+      </section>
+      <section>
+        <section>
+            <div class=" highlight python">
+                <pre class="fragment semi-fade-out" data-fragment-index="3">
+                    <code>
+>>> import turtle
+>>> bob = turtle.Turtle()
+>>>
+>>> print(bob)
+                    </code>
+                </pre>
+            </div>
+            <div class=" highlight python">
+                <pre  class="fragment fade-down" data-fragment-index="3">
+&lt;turtle.Turtle object at 0xb7bfbf4c&gt;
+                </pre>
+            </div>
+            <ul>
+                <li class="fragment" data-fragment-index="1">the <code>turtle</code> module (<em>lowercase t</em>)</li>
+                <li class="fragment" data-fragment-index="2">provides a function called <code>Turtle</code> (<em>uppercase T</em>)</li>
+                <li class="fragment" data-fragment-index="3">that creates a Turtle <strong>object</strong></li>
+                <li class="fragment" data-fragment-index="3">which we assign to a variable named <code>bob</code></li>
+            </ul>
+        </section>
+        <section data-transition="none">
+            <div class=" highlight python">
+                <pre>
+                    <code>
+>>> import turtle
+>>> bob = turtle.Turtle()
+>>>
+>>> print(bob)
+                    </code>
+                </pre>
+            </div>
+            <div class=" highlight python">
+                <pre>
+&lt;turtle.Turtle object at 0xb7bfbf4c&gt;
+                </pre>
+            </div>
+                <p class="fragment">printing <code>bob</code> displays that it refers to an <strong>object</strong> of <code>Turtle</code> type.</p>
+        </section>
+        <section>
+            <p>Once created, some methods move the Turtle around.</p>
+            <div class=" highlight python">
+                <pre class="fragment" data-fragment-index="2">
+                    <code>
+>>> bob.fd(100) # move bob forward, by 100 pixels
+                    </code>
+                </pre>
+            </div>
+            <p class="fragment" data-fragment-index="2">... a <em>method</em> is a <strong>function</strong>, with slightly different syntax.</p>
+        </section>
+        <section data-transition="none">
+            <p>a method is associated with an object (<code>turtle</code>).</p>
+            <div class=" highlight python">
+                <pre>
+                    <code>
+>>> bob.fd(100) # move bob forward, by 100 pixels
+                    </code>
+                </pre>
+            </div>
+            <p class="fragment" data-fragment-index="1">it is asking: <em>bob, move forward!</em></p>
+        </section>
+        <section>
+            <div>Other methods are: </div>
+            <div class=" highlight python">
+                <pre class="fragment fade-in">
+                    <code>
+>>> bob.bk(100) # move backward
+                    </code>
+                </pre>
+                <pre class="fragment fade-in">
+                    <code>
+>>> bob.lt(90) # turn left by an angle (in degrees)
+                    </code>
+                </pre>
+                <pre class="fragment fade-in">
+                    <code>
+>>> bob.rt(90) # turn right by an angle (in degrees)
+                    </code>
+                </pre>
+            </div>
+        </section>
+        <section>
+            <p>Each Turtle holds a pen, which is either</p>
+            <div class=" highlight python">
+                <pre class="fragment fade-in">
+                    <code>
+>>> bob.pu() # pen up
+                    </code>
+                </pre>
+                <pre class="fragment fade-in">
+                    <code>
+>>> bob.pd() # pen down
+                    </code>
+                </pre>
+            </div>
+            <p class="fragment">to leave a trail when moving the <code>turtle</code>.</p>
+        </section>
+        <section>
+            <h3>To draw a right angle</h3>
+            <div class=" highlight python">
+                <pre>
+                    <code>
+import turtle
+
+bob = turtle.Turtle()
+
+bob.fd(100)
+bob.lt(90)
+bob.fd(100)
+
+turtle.mainloop()
+                    </code>
+                </pre>
+            </div>
+            <div>
+                <p class="fragment step-fade-in-then-out" data-fragment-index="1">put this code into a file named <code>mypolygon.py</code></p>
+                <p class="fragment step-fade-in-then-out" data-fragment-index="2">... right after <code>bob</code>, but before the <code>mainloop</code>:</p>
+                <p class="fragment step-fade-in-then-out" data-fragment-index="3"><code>mainloop</code> waits for user input, e.g. close the window.</p>
+            </div>
+        </section>
+        <section>
+            Let's modify this program to draw a square!
+        </section>
+      </section>
+      <section>
+        <section>
+            <div>
+                <p>... the easiest way to go would be</p>
+            </div>            
+            <div class="highlight python">
+                <pre>
+                    <code>
+bob.fd(100) ; bob.lt(90)   # 1st side
+bob.fd(100) ; bob.lt(90)   # 2nd side
+bob.fd(100) ; bob.lt(90)   # 3rd side
+bob.fd(100)                # last side
+                    </code>
+                </pre>
+            </div>
+        <!-- </section>
+        <section> -->
+            <h1 class="fragment step-fade" data-fragment-index="1">Simple Repetition</h1>
+        </section>
+        <section>
+            <div>
+                <p>or more concisely with a ...</p>
+                <h1 class="fragment step-fade-in-then-out" data-fragment-index="1"><mark><code><span class="magnify">for</span></code></mark> statement</h1>
+            </div>
+            <div class=" highlight python">
+                <pre class="fragment fade-in" data-fragment-index="2">
+                    <code>
+for i in range(4):
+    print('Hello!') # much simpler!
+                    </code>
+                </pre>
+            </div>
+            <div class=" highlight python">
+                <pre  class="fragment fade-down" data-fragment-index="3">
+Hello!
+Hello!
+Hello!
+Hello!
+                </pre>
+            </div>
+        </section>
+        <section>
+            <div>
+                <p>with a similar syntax to <strong>functions</strong></p>
+            </div>
+            <div>
+                <h1><mark><code><span class="magnify">for</span></code></mark> statement</h1>
+            </div>
+            <br>
+            <div>
+                <ul class="fragment fade-in" data-fragment-index="1">
+                    <li>header &mdash; with an ending <strong>colon</strong></li>
+                    <li>body &mdash; <strong>indented</strong> statements (any number)</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <p>it's essentially a <strong>loop</strong></p>
+            <img src="img/robot-loop.jpg" alt="Open In Colab" width="400"/></a>
+            <p class="fragment fade-in" data-fragment-index="1">... the <strong>flow of execution</strong> runs through the body and then loops back to the top.</p>
+        </section>
+        <section>
+            <div>
+                <p>Here we draw a square with a loop:</p>
+            </div>
+            <div class=" highlight python">
+                <pre>
+                    <code>
+for i in range(4):
+    bob.fd(100)
+    bob.lt(90)
+                    </code>
+                </pre>
+            </div>
+            <div class="fragment fade-in" data-fragment-index="1">
+                <p>add it to <code>mypolygon.py</code> and try it out!</p>
+            </div>
+        </section>
+        <section>
+            <div>
+                <p>note, the <em>extra turn it takes:</em></p>
+            </div>
+            <div class="fragment fade-in" data-fragment-index="1">
+                <p>this <strong>simplifies the code</strong> since we do the same thing every time through the loop!</p>
+            </div>
+        </section>
+        <section>
+            <div>
+                <p>
+                    the original <strong>for statement</strong> can be re-written as follows:
+                </p>
+            </div>
+            <div class="fragment fade-in highlight python"  data-fragment-index="1">
+                <pre>
+                    <code>
+for _ in range(4):
+print('Hello!') # much simpler!
+<div class=" highlight python">
+                <pre  class="fragment fade-down" data-fragment-index="1">
+            Hello!
+            Hello!
+            Hello!
+            Hello!
+                </pre>
+            </div>
+            <div class="fragment fade-in" data-fragment-index="1">
+                <p>
+                    without the <strong>iterator</strong>
+                </p>
+            </div>
+        </section>
+      </section>
+
+
+
+<!-- 
+
+
+<p>We can rewrite </p>
+
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello!&#39;</span><span class="p">)</span>
+</pre></div>
+
+     
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Hello!
+Hello!
+Hello!
+Hello!
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div></div><div class="fragment" >
+
+</div>
+
+<p>... when we don't care about the iterator value, but that it should run some specific number of times!</p>
+
+</div></section></section><section ><section >
+
+</div>
+
+<h2 id="Exercises">Exercises<a class="anchor-link" href="#Exercises">&#182;</a></h2>
+
+
+</div>
+
+<ol>
+<li>A function <code>square</code> takes a <strong>parameter</strong> <code>t</code> (a turtle) and draws a square. Call <code>square</code> function passing <code>bob</code> as <strong>argument</strong>.</li>
+<li>The <code>square</code> function takes the side's <code>length</code> as <strong>parameter</strong>. Pass the second <strong>argument</strong> too. <strong>Test</strong> a range of values.</li>
+<li>A function <code>polygon</code> takes an additional <strong>parameter</strong> <code>n</code> and draws an <em>n-sided</em> regular polygon.</li>
+<li>A function <code>circle</code> takes as additional <strong>parameter</strong> a radius <code>r</code> and draws an approximate circle. <strong>Test</strong> a range of values of <code>r</code>.</li>
+<li>A function <code>arc</code> takes as additional <strong>parameter</strong> an <code>angle</code> (degrees) and draws a sector of a circle.</li>
+</ol>
+
+</section><section >
+
+</div>
+
+<p>The following sections have solutions to the exercises, so don’t look until you have finished (or at least tried).</p>
+
+</section><section >
+
+</div>
+
+<h2 id="Encapsulation">Encapsulation<a class="anchor-link" href="#Encapsulation">&#182;</a></h2>
+
+
+</div>
+
+<p>Put the square-drawing code into a <strong>function definition</strong> and call the function, passing the <em>turtle</em> as <strong>parameter</strong>.</p>
+
+
+
+</div>
+
+<pre><code>for i in range(4):
+
+    bob.fd(100)
+    bob.lt(90)
+</code></pre>
+
+</section><section >
+
+</div>
+
+<pre><code>bob = Turtle()
+def square(t):
+    for i in range(4):
+        t.fd(100)
+        t.lt(90)
+
+square(bob)
+</code></pre>
+
+
+
+</div>
+
+<p>Innermost statements are <strong>indented twice</strong> to show that they are inside the <strong>for loop</strong>, which is inside the <strong>function definition</strong>.</p>
+<p>All the rest, is <strong>flush with the left margin</strong>, which indicates the end of both the for loop and the function definition.</p>
+
+</section><section >
+
+</div>
+
+<pre><code>bob = Turtle()
+def square(t):
+    for i in range(4):
+        t.fd(100)
+        t.lt(90)
+
+square(bob)
+</code></pre>
+
+
+
+</div>
+
+<p>Inside the function, the <strong>parameter</strong> <code>t</code> refers to the same turtle <code>bob</code>, passed as <strong>argument</strong>.</p>
+<p>Why not call the parameter bob?</p>
+<p>The idea is that t can be <strong>any</strong> turtle, not just bob, so you could <em>create a second turtle and pass it</em> as an argument to the same function!</p>
+
+</section><section >
+
+</div>
+
+<p>Wrapping a piece of code up in a function is called <strong>encapsulation</strong>.</p>
+<p>It attaches a name to the code, which serves as a kind of <em>documentation</em>.</p>
+<p>If you reuse the code, it is more concise to call a function twice than to copy and paste the body!</p>
+
+</section><section >
+
+</div>
+
+<h2 id="Generalization">Generalization<a class="anchor-link" href="#Generalization">&#182;</a></h2>
+
+
+</div>
+
+<p>Next step, add a <code>length</code> parameter to <code>square</code>.</p>
+
+
+
+</div>
+
+<pre><code>bob = Turtle()
+def square(t, length):
+
+    for i in range(4):
+
+        t.fd(length)
+        t.lt(90)
+
+square(bob, 100)
+</code></pre>
+
+</section><section >
+
+</div>
+
+<p>Adding a parameter to a function is called <strong>generalization</strong>.</p>
+<p>It makes the function more general: just before the square was always the same size, now it can be any size.</p>
+
+</section><section >
+
+</div>
+
+<p>Next step is also a generalization, since <code>polygon</code> draws regular polygons with any number of sides, not just four!</p>
+
+
+
+</div>
+
+<pre><code>bob = Turtle()
+def polygon(t, n, length):
+
+    angle = 360 / n
+
+    for i in range(n):
+
+        t.fd(length)
+
+        t.lt(angle)
+
+polygon(bob, 7, 70)
+</code></pre>
+
+<div class="fragment" >
+
+</div>
+
+<p>This example draws a 7-sided polygon with side length 70.</p>
+
+</div></section><section >
+
+</div>
+
+<p>If using <code>Python2</code>, the value of angle might be <strong>off</strong> because of <strong>integer division</strong>. A simple solution is to compute it as follows</p>
+
+
+
+</div>
+
+<pre><code>angle = 360.0 / n
+</code></pre>
+
+
+
+</div>
+
+<p>The numerator is a <strong>floating-point</strong> number, as well as the result.</p>
+
+</section><section >
+
+</div>
+
+<p>With more than a few numeric arguments, it's easy to forget <strong>what</strong> they are, or what <strong>order</strong> they should be in!</p>
+<p>A good idea is to include the parameters' names in the argument list:</p>
+
+
+
+</div>
+
+<pre><code>polygon(bob, n=7, length=70)
+</code></pre>
+
+<div class="fragment" >
+
+</div>
+
+<p>These are called <strong>keyword arguments</strong> including the <strong>parameter</strong> names as <em>keywords</em> (do not confuse with Python keywords like <code>while</code> and <code>def</code>).</p>
+<p>This syntax makes the program more readable.</p>
+
+</div></section><section >
+
+</div>
+
+<h2 id="Interface-Design">Interface Design<a class="anchor-link" href="#Interface-Design">&#182;</a></h2>
+
+
+</div>
+
+<p>Next step, write <code>circle</code> taking a radius <code>r</code> as a parameter.</p>
+
+
+
+</div>
+
+<pre><code>import math
+
+def circle(t, r):
+    circumference = 2 * math.pi * r ; n = 50
+
+    length = circumference / n
+
+    polygon(t, n, length)
+</code></pre>
+
+<div class="fragment" >
+
+</div>
+
+<p>This solution uses <code>polygon</code> to draw a 50-sided polygon that approximates a circle, with an <strong>appropriate</strong> length and number of <strong>sides</strong>!</p>
+
+</div></section><section >
+
+</div>
+
+<p>First line computes the <strong>circumference</strong> of a circle with radius r.</p>
+<p>Since we use <code>math.pi</code>, we have to import <code>math</code>.</p>
+<p>By convention, import statements are usually at the beginning of the script.</p>
+<p><code>n</code> is the number of line segments in our approximation, thus <code>length</code> is the length of each segment.</p>
+
+</section><section >
+
+</div>
+
+<p>A current limitation is that <code>n</code> is a <strong>constant</strong>,thus:</p>
+<ul>
+<li>for very <em>big circles</em>, the line segments are too long</li>
+<li>for <em>small circles</em>, we waste time drawing very small segments</li>
+</ul>
+
+</section><section >
+
+</div>
+
+<p>A possible solution would be to <strong>generalize</strong> the function, taking <code>n</code> as a <strong>parameter</strong>, giving the user (better, the <strong>caller</strong>) more <em>control</em>, but the <strong>interface</strong> would be <em>less clean</em>.</p>
+
+</section><section >
+
+</div>
+
+<p>The <strong>interface</strong> of a function is a <em>summary</em> of how it is used:</p>
+<ul>
+<li>What are the parameters?</li>
+<li>What does the function do?</li>
+<li>What is the return value?</li>
+</ul>
+
+<div class="fragment" >
+
+</div>
+
+<p style="text-align: center;">An interface is <strong>clean</strong> if it allows the caller to do what they want without dealing with <strong>unnecessary details</strong>.</p>
+
+</div></section><section >
+
+</div>
+
+<ul>
+<li><code>r</code> belongs in the interface since it specifies the circle to be drawn.</li>
+<li><code>n</code> would be less appropriate, pertaining to the details of <em>how the circle should be rendered</em>.</li>
+</ul>
+
+</section><section >
+
+</div>
+
+<p>To avoid clutter up the interface, it's better to choose an appropriate value of <code>n</code> depending on <code>circumference</code>:</p>
+
+
+
+</div>
+
+<pre><code>import math
+
+def circle(t, r):
+    circumference = 2 * math.pi * r
+    n = int(circumference / 3) + 1
+    length = circumference / n
+
+    polygon(t, n, length)
+</code></pre>
+
+<div class="fragment" >
+
+</div>
+
+<p>The number of segments now is an integer near <code>circumference/3</code>.
+Thus, the <code>length</code> of each segment is approximately 3.</p>
+<p>... small enough that the circles look good, but big enough to be efficient!</p>
+
+</div></section><section >
+
+</div>
+
+<h2 id="Refactoring">Refactoring<a class="anchor-link" href="#Refactoring">&#182;</a></h2>
+
+
+</div>
+
+<p>Writing <code>circle</code> we were able to reuse <code>polygon</code>, being suitable to approximate of a circle, but <code>arc</code> is not as cooperative!</p>
+
+<div class="fragment" >
+
+</div>
+
+<p>An alternative is to start with a <strong>copy</strong> of <code>polygon</code> to transform it into <code>arc</code>.</p>
+
+</div></section><section >
+
+</div>
+
+<pre><code>def arc(t, r, angle):
+    arc_length = 2 * math.pi * r * angle / 360
+    n = int(arc_length / 3) + 1
+    step_length = arc_length / n
+    step_angle = angle / n
+
+    for i in range(n):
+        t.fd(step_length)
+        t.lt(step_angle)
+</code></pre>
+
+<div class="fragment" >
+
+</div>
+
+<p>The second half looks like <code>polygon</code>, but we can’t <strong>reuse</strong> polygon without <strong>changing</strong> (aka <strong>refactoring</strong>) the interface!</p>
+
+</div></section><section >
+
+</div>
+
+<p>We could <strong>generalize</strong> polygon to take an <code>angle</code> as a third <strong>argument</strong>, but then <code>polygon</code> would no longer be an appropriate name!</p>
+<p>Instead, let’s call the more general function <code>polyline</code>:</p>
+
+
+
+</div>
+
+<pre><code>def polyline(t, n, length, angle):
+    for i in range(n):
+        t.fd(length)
+        t.lt(angle)
+</code></pre>
+
+</section><section >
+
+</div>
+
+<p>Now we can <strong>rewrite</strong> (aka <strong>refactor</strong>) <code>polygon</code> and <code>arc</code> using <code>polyline</code>:</p>
+
+
+
+</div>
+
+<pre><code>def polygon(t, n, length):
+    angle = 360.0 / n
+    polyline(t, n, length, angle)
+
+def arc(t, r, angle):
+    arc_length = 2 * math.pi * r * angle / 360
+    n = int(arc_length / 3) + 1
+    step_length = arc_length / n
+    step_angle = float(angle) / n
+    polyline(t, n, step_length, step_angle)
+</code></pre>
+
+</section><section >
+
+</div>
+
+<p>... and we can <strong>rewrite</strong> <code>circle</code> using <code>arc</code> !</p>
+
+
+
+</div>
+
+<pre><code>def circle(t, r):
+    arc(t, r, 360)
+</code></pre>
+
+<div class="fragment" >
+
+</div>
+
+<p>The process of <strong>rearranging</strong> a program to <strong>improve</strong> interfaces and facilitate code reuse is called refactoring.</p>
+<p>Once noticed that <code>arc</code> and <code>polygon</code> were <strong>similar code</strong>, we <em>factored them out</em> into <code>polyline</code> !</p>
+
+</div></section><section >
+
+</div>
+
+<p>If planned ahead, we might have written first <code>polyline</code> avoiding refactoring, but often you don’t know enough at the beginning of a project to design all the interfaces.</p>
+<p>Once you start coding, you <strong>understand the problem</strong> better.</p>
+
+<div class="fragment" >
+
+</div>
+
+<p style="text-align: center;">Sometimes refactoring is a sign that you have learned something.</p>
+
+</div></section></section><section ><section >
+
+</div>
+
+<h2 id="A-Development-Plan">A Development Plan<a class="anchor-link" href="#A-Development-Plan">&#182;</a></h2>
+
+
+</div>
+
+<p>A process for writing programs. The development plan used so far was “encapsulation &amp; generalization”.</p>
+<ol>
+<li>Start with a small program – no function definitions.</li>
+<li>Once you get it working, identify coherent pieces &amp; encapsulate them in functions.</li>
+<li>Generalize these functions by adding appropriate parameters.</li>
+<li>Get a set of working functions (steps 1–3): <strong>copy/paste</strong> working code avoids retyping (and <strong>re-debugging</strong>).</li>
+<li>Further improve it, looks for similar code to factor out into an appropriately general function.</li>
+</ol>
+
+</section><section >
+
+</div>
+
+<p>This process has some drawbacks. We will see alternatives later, but it can be useful if you don’t know ahead of time how to divide the program into functions.</p>
+<p>This approach lets you design as you go along.</p>
+
+</section><section >
+
+</div>
+
+<h2 id="docstring">docstring<a class="anchor-link" href="#docstring">&#182;</a></h2>
+
+
+</div>
+
+<p>Is a string at the beginning of a function that <strong>explains the interface</strong> (<em>doc</em> is short for <em>documentation</em>).</p>
+
+<div class="fragment" >
+
+</div>
+
+<pre><code>def polyline(t, n, length, angle):
+    &quot;&quot;&quot;Draws n line segments with the given length and
+    angle (in degrees) between them.  t is a turtle.
+    &quot;&quot;&quot;    
+    for i in range(n):
+        t.fd(length)
+        t.lt(angle)
+</code></pre>
+
+
+
+</div>
+
+<p>By convention, docstrings are <strong>triple-quoted strings</strong>, also known as <strong>multiline strings</strong>, since this  the string to span more than one line.</p>
+
+</div></section><section >
+
+</div>
+
+<p>It is <strong>terse</strong>, but it contains the <strong>essential information</strong> someone would need to use this function.</p>
+<p>It explains concisely what the function does (without getting into the details of how it does it), explaining the effect of each parameter and its type.</p>
+
+<div class="fragment" >
+
+</div>
+
+<p style="text-align: center;">Writing this kind of documentation is an important part of interface design.</p>
+
+</div><div class="fragment" >
+
+</div>
+
+<p>A <strong>well-designed</strong> interface should be <strong>simple to explain</strong>; if you have a hard time explaining one of your functions, maybe the interface could be improved.</p>
+
+</div></section></section><section ><section >
+
+</div>
+
+<h2 id="Debugging">Debugging<a class="anchor-link" href="#Debugging">&#182;</a></h2>
+
+
+</div>
+
+<p>An interface is like a <strong>contract</strong> between a <em>function</em> and a <em>caller</em>.</p>
+<ul>
+<li>The caller agrees to provide certain parameters</li>
+<li>The function agrees to do certain work</li>
+</ul>
+
+</section><section >
+
+</div>
+
+<p>For example, <code>polyline</code> requires four arguments:</p>
+<ul>
+<li><code>t</code> has to be a Turtle;</li>
+<li><code>n</code> has to be an integer;</li>
+<li><code>length</code> should be a positive number;</li>
+<li><code>angle</code> has to be a number (in degrees).</li>
+</ul>
+
+<div class="fragment" >
+
+</div>
+
+<p>These <em>requirements</em> are called <strong>preconditions</strong> because they are supposed to be true before the function starts executing.</p>
+
+</div><div class="fragment" >
+
+</div>
+
+<p>Conversely, <em>conditions at the end of the function</em> are <strong>postconditions</strong>, including the intended effect of the function and any side effects!</p>
+
+</div></section><section >
+
+</div>
+
+<p>Preconditions are the <em>responsibility of the caller</em>. If the caller violates a (properly documented!) precondition and the function doesn’t work correctly, the <strong>bug</strong> is in the caller, not the function.</p>
+<p>If the preconditions are satisfied and the postconditions are not, the <strong>bug</strong> is in the function. If your <strong>pre/postconditions</strong> are clear, they can help with debugging.</p>
+
+      </div> -->
+      <!-- class="slides" -->
+    </div>
+    <!-- class="reveal" -->
+
+		<script src="reveal.js/dist/reveal.js"></script>
+		<script src="reveal.js/plugin/zoom/zoom.js"></script>
+		<script src="reveal.js/plugin/notes/notes.js"></script>
+		<script src="reveal.js/plugin/search/search.js"></script>
+		<script src="reveal.js/plugin/markdown/markdown.js"></script>
+		<script src="reveal.js/plugin/highlight/highlight.js"></script>
+<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+				center: true,
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+        });
+
+</script>
+
+<!-- Add this CSS for the logo -->
+<style>
+  /* Style for the logo */
+  .logo {
+      position: absolute;
+      bottom: 1px; /* Adjust this value to your preference */
+      left: 20px; /* Adjust this value to your preference */
+      width: 100px; /* Adjust the width as needed */
+      z-index: 999; /* Ensure the logo appears above other elements */
+            }
+
+  .reveal .slides section .fragment.step-fade-in-then-out {
+	opacity: 0;
+	display: none; }
+  .reveal .slides section .fragment.step-fade-in-then-out.current-fragment {
+	opacity: 1;
+	display: inline; }
+
+</style>
+
+<!-- Add this HTML for the logo image -->
+<img src="img/t-logo.png" alt="Logo" class="logo">
+
+	</body>
+</html>
