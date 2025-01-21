@@ -1,0 +1,7 @@
+To find the hidden treasure, you have to navigate to the directory
+
+/workspaces/CIS1051-python/lab-sessions/exploring_space/dario_3
+
+but you will not find it that easily, because it's hidden!
+To display it, search how to modify the ls command in order to 
+show files that are not visible.
